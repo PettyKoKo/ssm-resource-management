@@ -91,7 +91,7 @@
 					<hr style="height: 1px;" color="#BDBDBD" />
 				</div>
 				${article.articleContent }
-				<hr style="height: 1px;" color="black" />
+				<hr style="height: 1px;" color="#BDBDBD" />
 			</c:forEach>
 
 		</div>
