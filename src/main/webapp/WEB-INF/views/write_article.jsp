@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="container" style="background-color: #F2F2F2">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
 				<nav class="navbar navbar-default" role="navigation">
@@ -29,7 +29,7 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="articles" style="color: black">我的文章</a></li>
+						<li><a href="user_articles" style="color: black">我的文章</a></li>
 						<li><a href="forum" style="color: black">论坛</a></li>
 						<li><a href="question" style="color: black">问答</a></li>
 						<li><a href="activity" style="color: black">活动</a></li>
@@ -63,7 +63,7 @@
 				</nav>
 				<div class="row clearfix">
 					<div class="col-md-1 column"></div>
-					<div class="col-md-10 column">
+					<div class="col-md-10 column" style="background-color: white">
 						<nav class="navbar navbar-default" role="navigation">
 						<div class="navbar-header"></div>
 						<div class="collapse navbar-collapse"

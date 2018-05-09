@@ -320,12 +320,14 @@
       finish_time = #{finishTime,jdbcType=TIMESTAMP}
     where article_id = #{articleId,jdbcType=BIGINT}
   </update>
-  <select id="getAll" parameterType="com.kzl.rm.bean.Article" resultMap="BaseResultMap">
+  <select id="getAll" parameterType="com.kzl.rm.bean.Article"  resultMap="ResultMapWithBLOBs">
   	 select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
+     ,
+    <include refid="Blob_Column_List" />
     from article
     order by finish_time
   </select>

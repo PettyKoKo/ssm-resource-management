@@ -30,7 +30,7 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="articles" style="color:black">我的文章</a></li>
+						<li><a href="user_articles" style="color:black">我的文章</a></li>
 						<li><a href="forum" style="color:black">论坛</a></li>
 						<li><a href="question" style="color:black">问答</a></li>
 						<li><a href="activity" style="color:black">活动</a></li>

@@ -48,7 +48,7 @@ public class ArticleService {
 			article.setArticleName(article_title);
 			article.setArticleType(article_type);
 			article.setArticleContent(article_content);
-
+			System.out.println(article.getArticleContent());
 			Date now = new Date();
 			System.out.println(now);
 			article.setFinishTime(now);
@@ -59,7 +59,7 @@ public class ArticleService {
 
 			article.setAuthorId(userId);
 			int count = articleMapper.insertSelective(article);
-			System.out.println(count);
+			//System.out.println(count);
 			return count == 1;
 		}
 
@@ -72,7 +72,9 @@ public class ArticleService {
 	 * @return List<Article> 返回类型
 	 */
 	public List<Article> getAll() {
-		return articleMapper.getAll();
+		List<Article> articles = articleMapper.getAll();
+		return articles;
+		
 	}
 
 }
