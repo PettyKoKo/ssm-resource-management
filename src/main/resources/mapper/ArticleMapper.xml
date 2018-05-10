@@ -329,6 +329,6 @@
      ,
     <include refid="Blob_Column_List" />
     from article
-    order by finish_time
+    order by finish_time Desc
   </select>
 </mapper>

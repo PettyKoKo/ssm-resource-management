@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -83,7 +84,9 @@
 					<c:if test="${article.publishType =='翻译' }">
 						<label style="color: blue">${article.publishType }</label>
 					</c:if>
-					&nbsp;&nbsp;&nbsp;<label style="font-size: 25px">${article.articleName }</label><br>
+					&nbsp;&nbsp;&nbsp;<a
+						href="${APP_PATH }/article_details?articleId=${article.articleId}"
+						style="font-size: 25px; color: #696969; text-decoration: none">${article.articleName }</a><br>
 				</div>
 				<div style="height: 60px">
 					<fmt:formatDate value="${article.finishTime }" type="date"
@@ -91,8 +94,13 @@
 					<span style="float: right;">阅读数：${article.tread }&nbsp;&nbsp;&nbsp;</span>
 					<hr style="height: 1px;" color="#BDBDBD" />
 				</div>
-				${article.articleContent }
-				<hr style="height: 1px;" color="#BDBDBD" />
+				<c:if test="${fn:length(article.articleContent)>500}">
+					${fn:substring(article.articleContent, 0, 500)}
+				</c:if>
+				<c:if test="${fn:length(article.articleContent)<=500}">
+					${article.articleContent}
+				</c:if>
+					
 			</c:forEach>
 
 		</div>

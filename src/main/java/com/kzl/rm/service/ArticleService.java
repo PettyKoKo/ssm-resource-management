@@ -77,4 +77,9 @@ public class ArticleService {
 		
 	}
 
+	public Article findArticleById(long articleId) {
+		Article article = articleMapper.selectByPrimaryKey(articleId);
+		return article;
+	}
+
 }

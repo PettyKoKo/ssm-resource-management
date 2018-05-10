@@ -121,7 +121,10 @@
 								<tbody>
 									<c:forEach items="${pageInfo.list }" var="article">
 										<tr style="text-align: center;">
-											<td style="text-align: left"><a href="#">${article.articleName}</a></td>
+											<td style="text-align: left"><a
+												href="${APP_PATH }/article_details?articleId=${article.articleId}">${article.articleName}</a>&nbsp;&nbsp;(<fmt:formatDate
+													value="${article.finishTime }" type="date"
+													pattern="yyyy-MM-dd HH:mm:ss" />)</td>
 											<td></td>
 											<td>${article.tread }</td>
 											<td>0</td>
