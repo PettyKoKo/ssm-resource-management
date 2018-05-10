@@ -614,6 +614,76 @@ public class ArticleExample {
             addCriterion("finish_time not between", value1, value2, "finishTime");
             return (Criteria) this;
         }
+
+        public Criteria andPlantextIsNull() {
+            addCriterion("planText is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextIsNotNull() {
+            addCriterion("planText is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextEqualTo(String value) {
+            addCriterion("planText =", value, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextNotEqualTo(String value) {
+            addCriterion("planText <>", value, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextGreaterThan(String value) {
+            addCriterion("planText >", value, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextGreaterThanOrEqualTo(String value) {
+            addCriterion("planText >=", value, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextLessThan(String value) {
+            addCriterion("planText <", value, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextLessThanOrEqualTo(String value) {
+            addCriterion("planText <=", value, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextLike(String value) {
+            addCriterion("planText like", value, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextNotLike(String value) {
+            addCriterion("planText not like", value, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextIn(List<String> values) {
+            addCriterion("planText in", values, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextNotIn(List<String> values) {
+            addCriterion("planText not in", values, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextBetween(String value1, String value2) {
+            addCriterion("planText between", value1, value2, "plantext");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlantextNotBetween(String value1, String value2) {
+            addCriterion("planText not between", value1, value2, "plantext");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

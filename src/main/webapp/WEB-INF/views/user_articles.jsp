@@ -94,13 +94,7 @@
 					<span style="float: right;">阅读数：${article.tread }&nbsp;&nbsp;&nbsp;</span>
 					<hr style="height: 1px;" color="#BDBDBD" />
 				</div>
-				<c:if test="${fn:length(article.articleContent)>500}">
-					${fn:substring(article.articleContent, 0, 500)}
-				</c:if>
-				<c:if test="${fn:length(article.articleContent)<=500}">
-					${article.articleContent}
-				</c:if>
-					
+			    ${article.plantext}
 			</c:forEach>
 
 		</div>

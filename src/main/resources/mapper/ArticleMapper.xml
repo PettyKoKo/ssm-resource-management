@@ -1,334 +1,367 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kzl.rm.dao.ArticleMapper">
-  <resultMap id="BaseResultMap" type="com.kzl.rm.bean.Article">
-    <id column="article_id" jdbcType="BIGINT" property="articleId" />
-    <result column="publish_type" jdbcType="VARCHAR" property="publishType" />
-    <result column="article_name" jdbcType="VARCHAR" property="articleName" />
-    <result column="article_type" jdbcType="VARCHAR" property="articleType" />
-    <result column="author_id" jdbcType="BIGINT" property="authorId" />
-    <result column="praise" jdbcType="BIGINT" property="praise" />
-    <result column="tread" jdbcType="BIGINT" property="tread" />
-    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kzl.rm.bean.Article">
-    <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    article_id, publish_type, article_name, article_type, author_id, praise, tread, finish_time
-  </sql>
-  <sql id="Blob_Column_List">
-    article_content
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.kzl.rm.bean.ArticleExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from article
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByExample" parameterType="com.kzl.rm.bean.ArticleExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from article
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from article
-    where article_id = #{articleId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from article
-    where article_id = #{articleId,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.kzl.rm.bean.ArticleExample">
-    delete from article
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.kzl.rm.bean.Article">
-    insert into article (article_id, publish_type, article_name, 
-      article_type, author_id, praise, 
-      tread, finish_time, article_content
-      )
-    values (#{articleId,jdbcType=BIGINT}, #{publishType,jdbcType=VARCHAR}, #{articleName,jdbcType=VARCHAR}, 
-      #{articleType,jdbcType=VARCHAR}, #{authorId,jdbcType=BIGINT}, #{praise,jdbcType=BIGINT}, 
-      #{tread,jdbcType=BIGINT}, #{finishTime,jdbcType=TIMESTAMP}, #{articleContent,jdbcType=LONGVARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.kzl.rm.bean.Article">
-    insert into article
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        article_id,
-      </if>
-      <if test="publishType != null">
-        publish_type,
-      </if>
-      <if test="articleName != null">
-        article_name,
-      </if>
-      <if test="articleType != null">
-        article_type,
-      </if>
-      <if test="authorId != null">
-        author_id,
-      </if>
-      <if test="praise != null">
-        praise,
-      </if>
-      <if test="tread != null">
-        tread,
-      </if>
-      <if test="finishTime != null">
-        finish_time,
-      </if>
-      <if test="articleContent != null">
-        article_content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        #{articleId,jdbcType=BIGINT},
-      </if>
-      <if test="publishType != null">
-        #{publishType,jdbcType=VARCHAR},
-      </if>
-      <if test="articleName != null">
-        #{articleName,jdbcType=VARCHAR},
-      </if>
-      <if test="articleType != null">
-        #{articleType,jdbcType=VARCHAR},
-      </if>
-      <if test="authorId != null">
-        #{authorId,jdbcType=BIGINT},
-      </if>
-      <if test="praise != null">
-        #{praise,jdbcType=BIGINT},
-      </if>
-      <if test="tread != null">
-        #{tread,jdbcType=BIGINT},
-      </if>
-      <if test="finishTime != null">
-        #{finishTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="articleContent != null">
-        #{articleContent,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.kzl.rm.bean.ArticleExample" resultType="java.lang.Long">
-    select count(*) from article
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update article
-    <set>
-      <if test="record.articleId != null">
-        article_id = #{record.articleId,jdbcType=BIGINT},
-      </if>
-      <if test="record.publishType != null">
-        publish_type = #{record.publishType,jdbcType=VARCHAR},
-      </if>
-      <if test="record.articleName != null">
-        article_name = #{record.articleName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.articleType != null">
-        article_type = #{record.articleType,jdbcType=VARCHAR},
-      </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=BIGINT},
-      </if>
-      <if test="record.praise != null">
-        praise = #{record.praise,jdbcType=BIGINT},
-      </if>
-      <if test="record.tread != null">
-        tread = #{record.tread,jdbcType=BIGINT},
-      </if>
-      <if test="record.finishTime != null">
-        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.articleContent != null">
-        article_content = #{record.articleContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update article
-    set article_id = #{record.articleId,jdbcType=BIGINT},
-      publish_type = #{record.publishType,jdbcType=VARCHAR},
-      article_name = #{record.articleName,jdbcType=VARCHAR},
-      article_type = #{record.articleType,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=BIGINT},
-      praise = #{record.praise,jdbcType=BIGINT},
-      tread = #{record.tread,jdbcType=BIGINT},
-      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
-      article_content = #{record.articleContent,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update article
-    set article_id = #{record.articleId,jdbcType=BIGINT},
-      publish_type = #{record.publishType,jdbcType=VARCHAR},
-      article_name = #{record.articleName,jdbcType=VARCHAR},
-      article_type = #{record.articleType,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=BIGINT},
-      praise = #{record.praise,jdbcType=BIGINT},
-      tread = #{record.tread,jdbcType=BIGINT},
-      finish_time = #{record.finishTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.kzl.rm.bean.Article">
-    update article
-    <set>
-      <if test="publishType != null">
-        publish_type = #{publishType,jdbcType=VARCHAR},
-      </if>
-      <if test="articleName != null">
-        article_name = #{articleName,jdbcType=VARCHAR},
-      </if>
-      <if test="articleType != null">
-        article_type = #{articleType,jdbcType=VARCHAR},
-      </if>
-      <if test="authorId != null">
-        author_id = #{authorId,jdbcType=BIGINT},
-      </if>
-      <if test="praise != null">
-        praise = #{praise,jdbcType=BIGINT},
-      </if>
-      <if test="tread != null">
-        tread = #{tread,jdbcType=BIGINT},
-      </if>
-      <if test="finishTime != null">
-        finish_time = #{finishTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="articleContent != null">
-        article_content = #{articleContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where article_id = #{articleId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kzl.rm.bean.Article">
-    update article
-    set publish_type = #{publishType,jdbcType=VARCHAR},
-      article_name = #{articleName,jdbcType=VARCHAR},
-      article_type = #{articleType,jdbcType=VARCHAR},
-      author_id = #{authorId,jdbcType=BIGINT},
-      praise = #{praise,jdbcType=BIGINT},
-      tread = #{tread,jdbcType=BIGINT},
-      finish_time = #{finishTime,jdbcType=TIMESTAMP},
-      article_content = #{articleContent,jdbcType=LONGVARCHAR}
-    where article_id = #{articleId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.kzl.rm.bean.Article">
-    update article
-    set publish_type = #{publishType,jdbcType=VARCHAR},
-      article_name = #{articleName,jdbcType=VARCHAR},
-      article_type = #{articleType,jdbcType=VARCHAR},
-      author_id = #{authorId,jdbcType=BIGINT},
-      praise = #{praise,jdbcType=BIGINT},
-      tread = #{tread,jdbcType=BIGINT},
-      finish_time = #{finishTime,jdbcType=TIMESTAMP}
-    where article_id = #{articleId,jdbcType=BIGINT}
-  </update>
-  <select id="getAll" parameterType="com.kzl.rm.bean.Article"  resultMap="ResultMapWithBLOBs">
-  	 select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-     ,
-    <include refid="Blob_Column_List" />
-    from article
-    order by finish_time Desc
-  </select>
+	<resultMap id="BaseResultMap" type="com.kzl.rm.bean.Article">
+		<id column="article_id" jdbcType="BIGINT" property="articleId" />
+		<result column="publish_type" jdbcType="VARCHAR" property="publishType" />
+		<result column="article_name" jdbcType="VARCHAR" property="articleName" />
+		<result column="article_type" jdbcType="VARCHAR" property="articleType" />
+		<result column="author_id" jdbcType="BIGINT" property="authorId" />
+		<result column="praise" jdbcType="BIGINT" property="praise" />
+		<result column="tread" jdbcType="BIGINT" property="tread" />
+		<result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+		<result column="planText" jdbcType="VARCHAR" property="plantext" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="com.kzl.rm.bean.Article">
+		<result column="article_content" jdbcType="LONGVARCHAR"
+			property="articleContent" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		article_id, publish_type, article_name, article_type, author_id, praise, tread,
+		finish_time,
+		planText
+	</sql>
+	<sql id="Blob_Column_List">
+		article_content
+	</sql>
+	<select id="selectByExampleWithBLOBs" parameterType="com.kzl.rm.bean.ArticleExample"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from article
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByExample" parameterType="com.kzl.rm.bean.ArticleExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from article
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from article
+		where article_id = #{articleId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from article
+		where article_id = #{articleId,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.kzl.rm.bean.ArticleExample">
+		delete from article
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.kzl.rm.bean.Article">
+		insert into article (article_id, publish_type, article_name,
+		article_type, author_id, praise,
+		tread, finish_time, planText,
+		article_content)
+		values (#{articleId,jdbcType=BIGINT}, #{publishType,jdbcType=VARCHAR},
+		#{articleName,jdbcType=VARCHAR},
+		#{articleType,jdbcType=VARCHAR}, #{authorId,jdbcType=BIGINT}, #{praise,jdbcType=BIGINT},
+		#{tread,jdbcType=BIGINT}, #{finishTime,jdbcType=TIMESTAMP},
+		#{plantext,jdbcType=VARCHAR},
+		#{articleContent,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.kzl.rm.bean.Article">
+		insert into article
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="articleId != null">
+				article_id,
+			</if>
+			<if test="publishType != null">
+				publish_type,
+			</if>
+			<if test="articleName != null">
+				article_name,
+			</if>
+			<if test="articleType != null">
+				article_type,
+			</if>
+			<if test="authorId != null">
+				author_id,
+			</if>
+			<if test="praise != null">
+				praise,
+			</if>
+			<if test="tread != null">
+				tread,
+			</if>
+			<if test="finishTime != null">
+				finish_time,
+			</if>
+			<if test="plantext != null">
+				planText,
+			</if>
+			<if test="articleContent != null">
+				article_content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="articleId != null">
+				#{articleId,jdbcType=BIGINT},
+			</if>
+			<if test="publishType != null">
+				#{publishType,jdbcType=VARCHAR},
+			</if>
+			<if test="articleName != null">
+				#{articleName,jdbcType=VARCHAR},
+			</if>
+			<if test="articleType != null">
+				#{articleType,jdbcType=VARCHAR},
+			</if>
+			<if test="authorId != null">
+				#{authorId,jdbcType=BIGINT},
+			</if>
+			<if test="praise != null">
+				#{praise,jdbcType=BIGINT},
+			</if>
+			<if test="tread != null">
+				#{tread,jdbcType=BIGINT},
+			</if>
+			<if test="finishTime != null">
+				#{finishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="plantext != null">
+				#{plantext,jdbcType=VARCHAR},
+			</if>
+			<if test="articleContent != null">
+				#{articleContent,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.kzl.rm.bean.ArticleExample"
+		resultType="java.lang.Long">
+		select count(*) from article
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update article
+		<set>
+			<if test="record.articleId != null">
+				article_id = #{record.articleId,jdbcType=BIGINT},
+			</if>
+			<if test="record.publishType != null">
+				publish_type = #{record.publishType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.articleName != null">
+				article_name = #{record.articleName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.articleType != null">
+				article_type = #{record.articleType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.authorId != null">
+				author_id = #{record.authorId,jdbcType=BIGINT},
+			</if>
+			<if test="record.praise != null">
+				praise = #{record.praise,jdbcType=BIGINT},
+			</if>
+			<if test="record.tread != null">
+				tread = #{record.tread,jdbcType=BIGINT},
+			</if>
+			<if test="record.finishTime != null">
+				finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.plantext != null">
+				planText = #{record.plantext,jdbcType=VARCHAR},
+			</if>
+			<if test="record.articleContent != null">
+				article_content = #{record.articleContent,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExampleWithBLOBs" parameterType="map">
+		update article
+		set article_id = #{record.articleId,jdbcType=BIGINT},
+		publish_type = #{record.publishType,jdbcType=VARCHAR},
+		article_name = #{record.articleName,jdbcType=VARCHAR},
+		article_type = #{record.articleType,jdbcType=VARCHAR},
+		author_id = #{record.authorId,jdbcType=BIGINT},
+		praise = #{record.praise,jdbcType=BIGINT},
+		tread = #{record.tread,jdbcType=BIGINT},
+		finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+		planText = #{record.plantext,jdbcType=VARCHAR},
+		article_content = #{record.articleContent,jdbcType=LONGVARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update article
+		set article_id = #{record.articleId,jdbcType=BIGINT},
+		publish_type = #{record.publishType,jdbcType=VARCHAR},
+		article_name = #{record.articleName,jdbcType=VARCHAR},
+		article_type = #{record.articleType,jdbcType=VARCHAR},
+		author_id = #{record.authorId,jdbcType=BIGINT},
+		praise = #{record.praise,jdbcType=BIGINT},
+		tread = #{record.tread,jdbcType=BIGINT},
+		finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+		planText = #{record.plantext,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.kzl.rm.bean.Article">
+		update article
+		<set>
+			<if test="publishType != null">
+				publish_type = #{publishType,jdbcType=VARCHAR},
+			</if>
+			<if test="articleName != null">
+				article_name = #{articleName,jdbcType=VARCHAR},
+			</if>
+			<if test="articleType != null">
+				article_type = #{articleType,jdbcType=VARCHAR},
+			</if>
+			<if test="authorId != null">
+				author_id = #{authorId,jdbcType=BIGINT},
+			</if>
+			<if test="praise != null">
+				praise = #{praise,jdbcType=BIGINT},
+			</if>
+			<if test="tread != null">
+				tread = #{tread,jdbcType=BIGINT},
+			</if>
+			<if test="finishTime != null">
+				finish_time = #{finishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="plantext != null">
+				planText = #{plantext,jdbcType=VARCHAR},
+			</if>
+			<if test="articleContent != null">
+				article_content = #{articleContent,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where article_id = #{articleId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kzl.rm.bean.Article">
+		update article
+		set publish_type = #{publishType,jdbcType=VARCHAR},
+		article_name = #{articleName,jdbcType=VARCHAR},
+		article_type = #{articleType,jdbcType=VARCHAR},
+		author_id = #{authorId,jdbcType=BIGINT},
+		praise = #{praise,jdbcType=BIGINT},
+		tread = #{tread,jdbcType=BIGINT},
+		finish_time = #{finishTime,jdbcType=TIMESTAMP},
+		planText = #{plantext,jdbcType=VARCHAR},
+		article_content = #{articleContent,jdbcType=LONGVARCHAR}
+		where article_id = #{articleId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.kzl.rm.bean.Article">
+		update article
+		set publish_type = #{publishType,jdbcType=VARCHAR},
+		article_name = #{articleName,jdbcType=VARCHAR},
+		article_type = #{articleType,jdbcType=VARCHAR},
+		author_id = #{authorId,jdbcType=BIGINT},
+		praise = #{praise,jdbcType=BIGINT},
+		tread = #{tread,jdbcType=BIGINT},
+		finish_time = #{finishTime,jdbcType=TIMESTAMP},
+		planText = #{plantext,jdbcType=VARCHAR}
+		where article_id = #{articleId,jdbcType=BIGINT}
+	</update>
+	<select id="getAll" parameterType="com.kzl.rm.bean.Article"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from article
+		order by finish_time Desc
+	</select>
 </mapper>

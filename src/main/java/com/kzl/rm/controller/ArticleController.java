@@ -18,6 +18,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kzl.rm.bean.Article;
 import com.kzl.rm.service.ArticleService;
+import com.kzl.rm.utils.RemoveHTML;
 
 /**
  * 
@@ -100,7 +101,13 @@ public class ArticleController {
 
 		PageHelper.startPage(pn, 5);
 		List<Article> articles = articleService.getAll();
-
+		
+		System.out.println("Hello");
+		for (Article article : articles) {
+			String content = article.getArticleContent();
+			article.setPlantext(RemoveHTML.Html2Text(content));
+			System.out.println(article.getPlantext());
+		}
 		// 使用PageInfo包装查询后的结果
 		PageInfo page = new PageInfo(articles);
 		model.addAttribute("pageInfo", page);

@@ -19,6 +19,8 @@ public class Article {
 
     private Date finishTime;
 
+    private String plantext;
+
     private String articleContent;
 
     public Long getArticleId() {
@@ -83,6 +85,14 @@ public class Article {
 
     public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public String getPlantext() {
+        return plantext;
+    }
+
+    public void setPlantext(String plantext) {
+        this.plantext = plantext;
     }
 
     public String getArticleContent() {
