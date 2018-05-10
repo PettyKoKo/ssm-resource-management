@@ -71,8 +71,8 @@
 							<ul class="nav navbar-nav">
 								<li><a href="write_article" style="color: black;">发布文章</a></li>
 								<li><a href="article_management" style="color: black;">文章管理</a></li>
-								<li><a href="type_management" style="color: black;">类别管理</a></li>
 								<li><a href="comment_management" style="color: black">评论管理</a></li>
+								<li><a href="userInfo_management" style="color: black;">个人信息管理</a></li>
 							</ul>
 						</div>
 						</nav>

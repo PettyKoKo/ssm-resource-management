@@ -94,8 +94,16 @@ public class ArticleController {
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/article_management")
-	public String article_management() {
-		return null;
+	public String article_management(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model)throws ParseException {
+		// 引入PageHelper分页插件
+
+				PageHelper.startPage(pn, 5);
+				List<Article> articles = articleService.getAll();
+
+				// 使用PageInfo包装查询后的结果
+				PageInfo page = new PageInfo(articles);
+				model.addAttribute("pageInfo", page);
+				return "article_management";
 
 	}
 }
