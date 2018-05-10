@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -87,7 +88,7 @@
 					&nbsp;&nbsp;&nbsp;<label style="font-size: 25px">${article.articleName }</label><br>
 				</div>
 				<div style="height: 60px">
-					<span>${article.finishTime }</span><span style="float: right;">阅读数：${article.tread }&nbsp;&nbsp;&nbsp;</span>
+					<fmt:formatDate value="${article.finishTime }" type="date" pattern="yyyy-MM-dd HH:mm:ss"/><span style="float: right;">阅读数：${article.tread }&nbsp;&nbsp;&nbsp;</span>
 					<hr style="height: 1px;" color="#BDBDBD" />
 				</div>
 				${article.articleContent }
@@ -122,7 +123,6 @@
 				<li><a href="${APP_PATH }/user_articles?pn=${pageInfo.pages}">末页</a></li>
 			</ul>
 		</div>
-	</div>
 	</div>
 </body>
 </html>
