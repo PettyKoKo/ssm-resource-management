@@ -94,8 +94,8 @@ public class ArticleService {
 	 * @Description: 修改文章，进行保存操作
 	 * @return boolean 返回类型
 	 */
-	public boolean updataArticle(String article_Id, String publishType, String article_title,
-			String article_type, String article_content) {
+	public boolean updataArticle(String article_Id, String publishType, String article_title, String article_type,
+			String article_content) {
 
 		Article article = new Article();
 		article.setArticleId(Long.parseLong(article_Id));
@@ -107,6 +107,18 @@ public class ArticleService {
 		article.setFinishTime(now);
 
 		int count = articleMapper.updateByPrimaryKeySelective(article);
+		return count == 1;
+	}
+
+	/**
+	 * 
+	 * @Title: deleteArticle
+	 * @Description: 文章删除功能的具体实现
+	 * @return boolean 返回类型
+	 */
+	public boolean deleteArticle(String article_Id) {
+		
+		int count = articleMapper.deleteByPrimaryKey(Long.parseLong(article_Id));
 		return count == 1;
 	}
 

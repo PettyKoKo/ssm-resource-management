@@ -130,7 +130,7 @@
 											<td>0</td>
 											<td><a href="#">禁止评论</a></td>
 											<td><a href="${APP_PATH }/edit_article?articleId=${article.articleId}">编辑</a> | <a
-												href="${APP_PATH }/delete_article?articleId=${article.articleId}" >删除</a>
+												href="${APP_PATH }/delete_article?article_Id=${article.articleId}" >删除</a>
 										</tr>
 									</c:forEach>
 								</tbody>

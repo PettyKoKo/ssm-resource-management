@@ -151,22 +151,51 @@ public class ArticleController {
 	/**
 	 * 
 	 * @Title: updataArticle
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @Description: 实现文章修改功能
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/update_article")
-	public String updataArticle(@RequestParam("article_Id") String article_Id,@RequestParam("publishType") String publishType,
-			@RequestParam("article_title") String article_title, @RequestParam("article_type") String article_type,
-			@RequestParam("article_content") String article_content) {
-		
-		boolean result = articleService.updataArticle(article_Id,publishType, article_title, article_type, article_content);
+	public String updataArticle(@RequestParam("article_Id") String article_Id,
+			@RequestParam("publishType") String publishType, @RequestParam("article_title") String article_title,
+			@RequestParam("article_type") String article_type,
+			@RequestParam("article_content") String article_content,Model model) {
+
+		boolean result = articleService.updataArticle(article_Id, publishType, article_title, article_type,
+				article_content);
 
 		if (result) {
-			return "index";
+			PageHelper.startPage(1, 5);
+			List<Article> articles = articleService.getAll();
+
+			// 使用PageInfo包装查询后的结果
+			PageInfo page = new PageInfo(articles);
+			model.addAttribute("pageInfo", page);
+			return "article_management";
 		}
 
 		return "error";
 
+	}
+
+	/**
+	 * 
+	 * @Title: deleteArticle
+	 * @Description: 实现文章删除功能
+	 * @return String 返回类型
+	 */
+	@RequestMapping(value = "/delete_article")
+	public String deleteArticle(@RequestParam("article_Id") String article_Id, Model model) {
+		boolean result = articleService.deleteArticle(article_Id);
+		if (result) {
+			PageHelper.startPage(1, 5);
+			List<Article> articles = articleService.getAll();
+
+			// 使用PageInfo包装查询后的结果
+			PageInfo page = new PageInfo(articles);
+			model.addAttribute("pageInfo", page);
+			return "article_management";
+		}
+		return "error";
 	}
 
 }
