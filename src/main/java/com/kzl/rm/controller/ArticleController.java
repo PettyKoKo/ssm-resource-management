@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kzl.rm.bean.Article;
+import com.kzl.rm.bean.Comment;
 import com.kzl.rm.service.ArticleService;
 import com.kzl.rm.utils.RemoveHTML;
 
@@ -50,19 +51,19 @@ public class ArticleController {
 	 * @Title: user_publish_article
 	 * @Description: 发布文章
 	 * @return String 返回类型
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/user_publish_article")
 	public String user_publish_article(HttpServletRequest request, @RequestParam("publishType") String publishType,
 			@RequestParam("article_title") String article_title, @RequestParam("article_type") String article_type,
-			@RequestParam("article_content") String article_content,Model model) throws ParseException {
+			@RequestParam("article_content") String article_content, Model model) throws ParseException {
 		HttpSession session = request.getSession();
 		String user_account = (String) session.getAttribute("account");
 		// System.out.println(article_type);
 		boolean result = articleService.user_publish_article(publishType, article_title, article_type, article_content,
 				user_account);
 		if (result) {
-			return user_articles(1,model);
+			return user_articles(1, model);
 		}
 
 		return "write_article";
@@ -123,8 +124,13 @@ public class ArticleController {
 	@RequestMapping(value = "/article_details")
 	public String findArticleById(@RequestParam(value = "articleId") long articleId, Model model) {
 		Article article = articleService.findArticleById(articleId);
+		List<Comment> comments = articleService.findCommentByArticleId(articleId);
 		if (article != null) {
 			model.addAttribute("ArticleInfo", article);
+			
+			if (comments != null)
+				model.addAttribute("comments", comments);
+
 			return "article_details";
 		}
 		return "error";
@@ -158,8 +164,8 @@ public class ArticleController {
 	@RequestMapping(value = "/update_article")
 	public String updataArticle(@RequestParam("article_Id") String article_Id,
 			@RequestParam("publishType") String publishType, @RequestParam("article_title") String article_title,
-			@RequestParam("article_type") String article_type,
-			@RequestParam("article_content") String article_content,Model model) {
+			@RequestParam("article_type") String article_type, @RequestParam("article_content") String article_content,
+			Model model) {
 
 		boolean result = articleService.updataArticle(article_Id, publishType, article_title, article_type,
 				article_content);

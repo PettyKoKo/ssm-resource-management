@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kzl.rm.bean.Article;
+import com.kzl.rm.bean.Comment;
 import com.kzl.rm.bean.User;
 import com.kzl.rm.dao.ArticleMapper;
+import com.kzl.rm.dao.CommentMapper;
 import com.kzl.rm.dao.UserMapper;
 
 /**
@@ -27,6 +29,9 @@ public class ArticleService {
 
 	@Autowired
 	UserMapper userMapper;
+
+	@Autowired
+	CommentMapper commentMapper;
 
 	/**
 	 * 
@@ -117,9 +122,21 @@ public class ArticleService {
 	 * @return boolean 返回类型
 	 */
 	public boolean deleteArticle(String article_Id) {
-		
+
 		int count = articleMapper.deleteByPrimaryKey(Long.parseLong(article_Id));
 		return count == 1;
 	}
 
+	/**
+	 * 
+	 * @Title: findCommentByArticleId
+	 * @Description: 通过文章Id来查找与之相关联的评论信息
+	 * @return Comment 返回类型
+	 */
+	public List<Comment> findCommentByArticleId(Long articleId) {
+		List<Comment> comments = commentMapper.selectByArticleId(articleId);
+		return comments;
+	}
+	
+	
 }

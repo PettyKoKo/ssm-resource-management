@@ -248,4 +248,13 @@
       comment_time = #{commentTime,jdbcType=TIMESTAMP}
     where comment_id = #{commentId,jdbcType=BIGINT}
   </update>
+  <select id="selectByArticleId" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from comment
+    where article_id = #{articleId,jdbcType=BIGINT}
+    order by comment_time Desc
+  </select>
 </mapper>

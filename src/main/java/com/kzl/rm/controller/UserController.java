@@ -44,6 +44,12 @@ public class UserController {
 		return "register";
 	}
 
+	// 关于我们页面
+	@RequestMapping(value = "/about")
+	public String about() {
+		return "about";
+	}
+	
 	/**
 	 * 
 	 * @Title: checkUser_Account

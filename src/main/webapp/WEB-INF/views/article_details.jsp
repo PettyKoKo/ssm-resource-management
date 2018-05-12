@@ -5,6 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <title>${ArticleInfo.articleName }</title>
 <%
 	pageContext.setAttribute("APP_PATH", request.getContextPath());
@@ -104,14 +105,27 @@
 				<div style="height: 40px;">
 					<input type="submit" class="btn btn-default"
 						style="width: 180px; background: red; color: white; float: right"
-						value="发表评论" />
-				<input type="text" id="observer_account" name="observer_account" style="display:none" value="<%=session.getAttribute("account")%>">
-				<input type="text" id="article_Id" name="article_Id"  style="display:none" value="${ArticleInfo.articleId}">
+						value="发表评论" /> <input type="text" id="observer_account"
+						name="observer_account" style="display: none"
+						value="<%=session.getAttribute("account")%>"> <input
+						type="text" id="article_Id" name="article_Id"
+						style="display: none" value="${ArticleInfo.articleId}">
 				</div>
 				<hr style="height: 1px;" color="#BDBDBD" />
 			</form>
 			<div>
-				
+				<c:forEach items="${comments }" var="comment">
+					<div>
+						<div style="height: 30px">
+							<label>${comment.observerAccount }</label>&nbsp;&nbsp;&nbsp;&nbsp;
+							<fmt:formatDate value="${comment.commentTime }" type="date"
+								pattern="yyyy-MM-dd HH:mm:ss" />
+							<a id="a1" href="#">删除</a>
+						</div>
+						<div style="height: 35px">${comment.commentContent }</div>
+						<hr style="border: 1px dashed #BDBDBD" />
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="col-md-1 column"></div>
