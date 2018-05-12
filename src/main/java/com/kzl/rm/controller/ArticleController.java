@@ -23,7 +23,7 @@ import com.kzl.rm.utils.RemoveHTML;
 /**
  * 
  * @ClassName: ArticleController
- * @Description:
+ * @Description:对文章进行增删改查操作
  * @author kezeli
  * @date 2018年5月5日 下午4:08:11
  *
@@ -50,18 +50,19 @@ public class ArticleController {
 	 * @Title: user_publish_article
 	 * @Description: 发布文章
 	 * @return String 返回类型
+	 * @throws ParseException 
 	 */
 	@RequestMapping(value = "/user_publish_article")
 	public String user_publish_article(HttpServletRequest request, @RequestParam("publishType") String publishType,
 			@RequestParam("article_title") String article_title, @RequestParam("article_type") String article_type,
-			@RequestParam("article_content") String article_content) {
+			@RequestParam("article_content") String article_content,Model model) throws ParseException {
 		HttpSession session = request.getSession();
 		String user_account = (String) session.getAttribute("account");
 		// System.out.println(article_type);
 		boolean result = articleService.user_publish_article(publishType, article_title, article_type, article_content,
 				user_account);
 		if (result) {
-			return "index";
+			return user_articles(1,model);
 		}
 
 		return "write_article";

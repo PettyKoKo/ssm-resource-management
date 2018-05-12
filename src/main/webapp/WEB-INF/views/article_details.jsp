@@ -4,10 +4,11 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
-<meta charset="utf-8" />
 <title>${ArticleInfo.articleName }</title>
+<%
+	pageContext.setAttribute("APP_PATH", request.getContextPath());
+%>
 <link href="static/bootstrap-3.3.7-dist/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
 <script src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -90,6 +91,31 @@
 				<div class="col-md-1 column"></div>
 			</div>
 		</div>
+
+		<div class="col-md-1 column"></div>
+		<div class="col-md-10 column" style="background-color: white">
+			<form method="post" action="comment_article">
+				<div style="height: 90px;">
+					<textarea name="comment_content" id="comment_content"
+						style="height: 80px" "
+						class="form-control"
+						placeholder="想对作者说点什么"></textarea>
+				</div>
+				<div style="height: 40px;">
+					<input type="submit" class="btn btn-default"
+						style="width: 180px; background: red; color: white; float: right"
+						value="发表评论" />
+				<input type="text" id="observer_account" name="observer_account" style="display:none" value="<%=session.getAttribute("account")%>">
+				<input type="text" id="article_Id" name="article_Id"  style="display:none" value="${ArticleInfo.articleId}">
+				</div>
+				<hr style="height: 1px;" color="#BDBDBD" />
+			</form>
+			<div>
+				
+			</div>
+		</div>
+		<div class="col-md-1 column"></div>
 	</div>
+
 </body>
 </html>

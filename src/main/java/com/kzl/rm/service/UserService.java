@@ -8,6 +8,14 @@ import com.kzl.rm.bean.UserExample;
 import com.kzl.rm.bean.UserExample.Criteria;
 import com.kzl.rm.dao.UserMapper;
 
+/**
+ * 
+ * @ClassName: UserService
+ * @Description: TODO(这里用一句话描述这个类的作用)
+ * @author kezeli
+ * @date 2018年5月1日 上午11:57:48
+ *
+ */
 @Service
 public class UserService {
 
@@ -78,7 +86,7 @@ public class UserService {
 	 * @Description: 通过用户账号查找用户信息
 	 * @return User 返回类型
 	 */
-	public  User findIdByAccount(String account) {
+	public User findIdByAccount(String account) {
 		User user = userMapper.findUserByAccount(account);
 		return user;
 	}

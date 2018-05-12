@@ -12,6 +12,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kzl.rm.bean.User;
 import com.kzl.rm.service.UserService;
 
+/**
+ * 
+ * @ClassName: UserController
+ * @Description: TODO(这里用一句话描述这个类的作用)
+ * @author kezeli
+ * @date 2018年5月1日 上午11:57:04
+ *
+ */
 @Controller
 public class UserController {
 
@@ -96,7 +104,8 @@ public class UserController {
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/user_login")
-	public String user_login(HttpServletRequest request,@RequestParam("account") String account, @RequestParam("password") String password) {
+	public String user_login(HttpServletRequest request, @RequestParam("account") String account,
+			@RequestParam("password") String password) {
 		String result = userService.user_login(account, password);
 		if (result.equals("AccountIsNotExist"))
 			return "AccountIsNotExist";
@@ -104,6 +113,14 @@ public class UserController {
 			return "PasswordError";
 		HttpSession session = request.getSession();
 		session.setAttribute("account", account);
+		return "index";
+	}
+	
+	@RequestMapping(value="/logout")
+	public String user_Logout(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		session.removeAttribute("account");
+		session.invalidate();
 		return "index";
 	}
 }
