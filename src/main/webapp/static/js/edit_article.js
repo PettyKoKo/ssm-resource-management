@@ -18,8 +18,9 @@ function check_Article_content() {
 		$('#article_content_msg').html("文章内容不能为空");
 		return false;
 	}
-	document.getElementById("article_type").value = $('#sel_articleType option:selected').val();
-	//alert(document.getElementById("article_type").value);
+	alert("Hello Test");
+	document.getElementById("article_type").value = $('#sel_articleType option:selected').text();
+	alert(document.getElementById("article_type").value);
 	document.getElementById("article_content").value = UE.getEditor('editor').getContent();
 	$('#article_content_msg').empty();
 	return true;
