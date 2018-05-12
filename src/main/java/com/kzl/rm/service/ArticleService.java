@@ -59,7 +59,7 @@ public class ArticleService {
 
 			article.setAuthorId(userId);
 			int count = articleMapper.insertSelective(article);
-			//System.out.println(count);
+			// System.out.println(count);
 			return count == 1;
 		}
 
@@ -74,12 +74,40 @@ public class ArticleService {
 	public List<Article> getAll() {
 		List<Article> articles = articleMapper.getAll();
 		return articles;
-		
+
 	}
 
+	/**
+	 * 
+	 * @Title: findArticleById
+	 * @Description: 通过文章ID查找文章详细信息
+	 * @return Article 返回类型
+	 */
 	public Article findArticleById(long articleId) {
 		Article article = articleMapper.selectByPrimaryKey(articleId);
 		return article;
+	}
+
+	/**
+	 * 
+	 * @Title: updataArticle
+	 * @Description: 修改文章，进行保存操作
+	 * @return boolean 返回类型
+	 */
+	public boolean updataArticle(String article_Id, String publishType, String article_title,
+			String article_type, String article_content) {
+
+		Article article = new Article();
+		article.setArticleId(Long.parseLong(article_Id));
+		article.setPublishType(publishType);
+		article.setArticleName(article_title);
+		article.setArticleType(article_type);
+		article.setArticleContent(article_content);
+		Date now = new Date();
+		article.setFinishTime(now);
+
+		int count = articleMapper.updateByPrimaryKeySelective(article);
+		return count == 1;
 	}
 
 }

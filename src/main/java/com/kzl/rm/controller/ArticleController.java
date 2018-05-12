@@ -57,7 +57,7 @@ public class ArticleController {
 			@RequestParam("article_content") String article_content) {
 		HttpSession session = request.getSession();
 		String user_account = (String) session.getAttribute("account");
-		System.out.println(article_type);
+		// System.out.println(article_type);
 		boolean result = articleService.user_publish_article(publishType, article_title, article_type, article_content,
 				user_account);
 		if (result) {
@@ -79,9 +79,13 @@ public class ArticleController {
 			throws ParseException {
 		// 引入PageHelper分页插件
 
-		PageHelper.startPage(pn, 1);
+		PageHelper.startPage(pn, 8);
 		List<Article> articles = articleService.getAll();
 
+		for (Article article : articles) {
+			String content = article.getArticleContent();
+			article.setPlantext(RemoveHTML.Html2Text(content));
+		}
 		// 使用PageInfo包装查询后的结果
 		PageInfo page = new PageInfo(articles);
 		model.addAttribute("pageInfo", page);
@@ -101,13 +105,7 @@ public class ArticleController {
 
 		PageHelper.startPage(pn, 5);
 		List<Article> articles = articleService.getAll();
-		
-		System.out.println("Hello");
-		for (Article article : articles) {
-			String content = article.getArticleContent();
-			article.setPlantext(RemoveHTML.Html2Text(content));
-			System.out.println(article.getPlantext());
-		}
+
 		// 使用PageInfo包装查询后的结果
 		PageInfo page = new PageInfo(articles);
 		model.addAttribute("pageInfo", page);
@@ -130,4 +128,45 @@ public class ArticleController {
 		}
 		return "error";
 	}
+
+	/**
+	 * 
+	 * @Title: editArticle
+	 * @Description: 实现文章编辑功能
+	 * @return String 返回类型
+	 */
+	@RequestMapping(value = "/edit_article")
+	public String editArticle(@RequestParam(value = "articleId") long articleId, Model model) {
+		Article article = articleService.findArticleById(articleId);
+		if (article != null) {
+			model.addAttribute("EditArticleInfo", article);
+			String[] list = new String[] { "人工智能", "移动开发", "后台开发", "架构", "运维", "游戏开发", "云计算/大数据", "数据库", "前端", "编程语言",
+					"研发管理", "安全", "程序人生", "区块链" };
+			model.addAttribute("List", list);
+			return "edit_article";
+		}
+		return "error";
+	}
+
+	/**
+	 * 
+	 * @Title: updataArticle
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @return String 返回类型
+	 */
+	@RequestMapping(value = "/update_article")
+	public String updataArticle(@RequestParam("article_Id") String article_Id,@RequestParam("publishType") String publishType,
+			@RequestParam("article_title") String article_title, @RequestParam("article_type") String article_type,
+			@RequestParam("article_content") String article_content) {
+		
+		boolean result = articleService.updataArticle(article_Id,publishType, article_title, article_type, article_content);
+
+		if (result) {
+			return "index";
+		}
+
+		return "error";
+
+	}
+
 }

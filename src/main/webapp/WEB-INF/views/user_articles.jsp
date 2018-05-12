@@ -88,13 +88,21 @@
 						href="${APP_PATH }/article_details?articleId=${article.articleId}"
 						style="font-size: 25px; color: #696969; text-decoration: none">${article.articleName }</a><br>
 				</div>
+				<div style="height:60px">
+					<c:if test="${fn:length(article.plantext)>150}">
+					${fn:substring(article.plantext, 0,150)}
+				</c:if>
+					<c:if test="${fn:length(article.plantext)<=150}">
+					 ${article.plantext}
+				</c:if>
+					...
+				</div>
 				<div style="height: 60px">
 					<fmt:formatDate value="${article.finishTime }" type="date"
 						pattern="yyyy-MM-dd HH:mm:ss" />
 					<span style="float: right;">阅读数：${article.tread }&nbsp;&nbsp;&nbsp;</span>
 					<hr style="height: 1px;" color="#BDBDBD" />
 				</div>
-			    ${article.plantext}
 			</c:forEach>
 
 		</div>

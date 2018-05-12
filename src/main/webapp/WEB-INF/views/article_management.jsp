@@ -129,8 +129,8 @@
 											<td>${article.tread }</td>
 											<td>0</td>
 											<td><a href="#">禁止评论</a></td>
-											<td><a href='/postedit/78036234'>编辑</a> | <a
-												href='?t=del&id=78036234' name=del>删除</a>
+											<td><a href="${APP_PATH }/edit_article?articleId=${article.articleId}">编辑</a> | <a
+												href="${APP_PATH }/delete_article?articleId=${article.articleId}" >删除</a>
 										</tr>
 									</c:forEach>
 								</tbody>

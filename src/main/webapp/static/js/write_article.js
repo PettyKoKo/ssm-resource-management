@@ -18,7 +18,7 @@ function check_SelType() {
 		str = "翻译"
 	}
 	document.getElementById("publishType").value = str;
-	alert(document.getElementById("publishType").value);
+	//alert(document.getElementById("publishType").value);
 	$('#selType_msg').empty();
 	return true;
 
@@ -43,7 +43,7 @@ function check_Article_type() {
 	
 	for (i = 0; i < radios.length; i++) {
 		if (radios[i].checked == true) {
-			alert(types[parseInt(radios[i].value)]);
+			//alert(types[parseInt(radios[i].value)]);
 			document.getElementById("article_type").value=types[parseInt(radios[i].value)];
 			
 			$('#article_type_msg').empty();
