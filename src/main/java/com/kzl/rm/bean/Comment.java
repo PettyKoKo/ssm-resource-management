@@ -11,6 +11,8 @@ public class Comment {
 
     private Date commentTime;
 
+    private String reviewerAccount;
+
     private String commentContent;
 
     public Long getCommentId() {
@@ -43,6 +45,14 @@ public class Comment {
 
     public void setCommentTime(Date commentTime) {
         this.commentTime = commentTime;
+    }
+
+    public String getReviewerAccount() {
+        return reviewerAccount;
+    }
+
+    public void setReviewerAccount(String reviewerAccount) {
+        this.reviewerAccount = reviewerAccount;
     }
 
     public String getCommentContent() {

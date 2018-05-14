@@ -354,6 +354,76 @@ public class CommentExample {
             addCriterion("comment_time not between", value1, value2, "commentTime");
             return (Criteria) this;
         }
+
+        public Criteria andReviewerAccountIsNull() {
+            addCriterion("reviewer_account is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountIsNotNull() {
+            addCriterion("reviewer_account is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountEqualTo(String value) {
+            addCriterion("reviewer_account =", value, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountNotEqualTo(String value) {
+            addCriterion("reviewer_account <>", value, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountGreaterThan(String value) {
+            addCriterion("reviewer_account >", value, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountGreaterThanOrEqualTo(String value) {
+            addCriterion("reviewer_account >=", value, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountLessThan(String value) {
+            addCriterion("reviewer_account <", value, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountLessThanOrEqualTo(String value) {
+            addCriterion("reviewer_account <=", value, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountLike(String value) {
+            addCriterion("reviewer_account like", value, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountNotLike(String value) {
+            addCriterion("reviewer_account not like", value, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountIn(List<String> values) {
+            addCriterion("reviewer_account in", values, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountNotIn(List<String> values) {
+            addCriterion("reviewer_account not in", values, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountBetween(String value1, String value2) {
+            addCriterion("reviewer_account between", value1, value2, "reviewerAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewerAccountNotBetween(String value1, String value2) {
+            addCriterion("reviewer_account not between", value1, value2, "reviewerAccount");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

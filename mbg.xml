@@ -40,9 +40,9 @@
 			
 		<!-- table指定每个表的生成策略 -->
 		<!--<table tableName="user" domainObjectName="User"></table>  -->
-		<table tableName="article" domainObjectName="Article"></table>
-		<!-- <table tableName="comment" domainObjectName="Comment"></table>
-		<table tableName="personal_image" domainObjectName="Person_Image"></table>
+		<!-- table tableName="article" domainObjectName="Article"></table> -->
+		 <table tableName="comment" domainObjectName="Comment"></table>
+		<!--<table tableName="personal_image" domainObjectName="Person_Image"></table>
 		<table tableName="review" domainObjectName="Review"></table>
 		<table tableName="resource_upload" domainObjectName="Resource_Upload"></table>
 		<table tableName="resource_download" domainObjectName="Resource_Download"></table> -->

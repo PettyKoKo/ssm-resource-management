@@ -35,4 +35,6 @@ public interface CommentMapper {
     int updateByPrimaryKey(Comment record);
     
     List<Comment> selectByArticleId(Long articleId);
+
+	List<Comment> findCommentByArticleIdAndObserver(Long articleId, String observerAccount);
 }

@@ -14,6 +14,7 @@
 	rel="stylesheet" type="text/css" />
 <script src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="static/js/jquery-1.12.4.min.js"></script>
+<script src="static/js/publish_comment.js"></script>
 </head>
 
 <body>
@@ -102,6 +103,7 @@
 						style="height: 80px" "
 						class="form-control"
 						placeholder="想对作者说点什么"></textarea>
+					<span style="color: red" id="comment_content_msg" class="error"></span>
 				</div>
 				<div style="height: 40px;">
 					<input type="submit" class="btn btn-default"
@@ -121,8 +123,8 @@
 							<label>${comment.observerAccount }</label>&nbsp;&nbsp;&nbsp;&nbsp;
 							<fmt:formatDate value="${comment.commentTime }" type="date"
 								pattern="yyyy-MM-dd HH:mm:ss" />
-							<a id="a1" href="#">删除</a>
-							<a id="a1" href="#">回复</a>
+							<a href="${APP_PATH }/deleteComment?comment_id=${comment.commentId}&article_Id=${comment.articleId}">删除</a>
+							<a style="cursor:pointer" onclick="reply()">回复</a>
 						</div>
 						<div style="height: 35px">${comment.commentContent }</div>
 						<hr style="border: 1px dashed #BDBDBD" />

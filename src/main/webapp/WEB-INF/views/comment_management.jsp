@@ -7,7 +7,7 @@
 <html>
 
 <head>
-<title>评论管理</title>
+<title>对我文章的评论</title>
 <%
 	pageContext.setAttribute("APP_PATH", request.getContextPath());
 %>
@@ -77,35 +77,23 @@
 							</ul>
 						</div>
 						</nav>
+						<div style="height:40px">
+								<a href="comment_management" style="color: green;">对我文章的评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="mycomment_management" style="color: green;">我发表的评论</a>
+						</div>
 						<div>
-							<table class="table">
-								<thead>
-									<tr>
-										<th style="width: 350px">标题</th>
-										<th style="width: 50px; text-align: center;">状态</th>
-										<th style="width: 50px; text-align: center;">阅读</th>
-										<th style="width: 50px; text-align: center;">评论</th>
-										<th style="width: 70px; text-align: center;">评论权限</th>
-										<th style="width: 170px; text-align: center;">操作</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${pageInfo.list }" var="article">
-										<tr style="text-align: center;">
-											<td style="text-align: left"><a
-												href="${APP_PATH }/article_details?articleId=${article.articleId}">${article.articleName}</a>&nbsp;&nbsp;(<fmt:formatDate
-													value="${article.finishTime }" type="date"
-													pattern="yyyy-MM-dd HH:mm:ss" />)</td>
-											<td></td>
-											<td>${article.tread }</td>
-											<td>0</td>
-											<td><a href="#">禁止评论</a></td>
-											<td><a href="${APP_PATH }/edit_article?articleId=${article.articleId}">编辑</a> | <a
-												href="${APP_PATH }/delete_article?article_Id=${article.articleId}" >删除</a>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+							<c:forEach items="${comments }" var="comment">
+					<div>
+						<div style="height: 30px">
+							<label>${comment.observerAccount }</label>&nbsp;&nbsp;&nbsp;&nbsp;
+							<fmt:formatDate value="${comment.commentTime }" type="date"
+								pattern="yyyy-MM-dd HH:mm:ss" />
+						</div>
+						<div style="height: 35px">${comment.commentContent }</div>
+						<hr style="border: 1px dashed #BDBDBD" />
+					</div>
+				</c:forEach>
+						
 						</div>
 
 					</div>

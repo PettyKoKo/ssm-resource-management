@@ -1,13 +1,17 @@
 package com.kzl.rm.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kzl.rm.bean.Comment;
 import com.kzl.rm.service.CommentService;
 
 /**
@@ -35,7 +39,8 @@ public class CommentController {
 			@RequestParam("observer_account") String observer_account,
 			@RequestParam("comment_content") String comment_content) {
 		HttpSession session = request.getSession();
-		if (session.getAttribute("account") == null) {
+		String reviewer_account = (String) session.getAttribute("account");
+		if (reviewer_account == null) {
 			return "error";
 		}
 		if (observer_account == null || observer_account == "" || article_Id == null || article_Id == ""
@@ -43,25 +48,59 @@ public class CommentController {
 			return "error";
 		}
 
-		System.out.println(observer_account.length());
-		boolean result = commentService.saveArticle_Comment(article_Id, observer_account, comment_content);
+		// System.out.println(observer_account.length());
+		boolean result = commentService.saveArticle_Comment(article_Id, observer_account, comment_content,
+				reviewer_account);
 		if (result) {
 			return "redirect:/article_details?articleId=" + article_Id;
 		}
 		return "error";
 	}
 
-	
+
 	/**
 	 * 
-	 * @Title: comment_management
-	 * @Description: 评论管理功能
+	 * @Title: mycomment_management
+	 * @Description: 评论管理功能(我发表的评论)
 	 * @return String 返回类型
 	 */
-	@RequestMapping(value="/comment_management")
-	public String comment_management() {
-		return "comment_management";
+	@RequestMapping(value = "/mycomment_management")
+	public String mycomment_management() {
+		return "mycomment_management";
+	}
+
+	/**
+	 * 
+	 * @Title: deleteComment
+	 * @Description: 实现对评论的删除功能
+	 * @return String 返回类型
+	 */
+	@RequestMapping(value = "/deleteComment")
+	public String deleteComment(@RequestParam("comment_id") String comment_id,
+			@RequestParam("article_Id") String article_Id, Model model) {
+		boolean result = commentService.deleteComment(comment_id);
+		if (result) {
+			return "redirect:/article_details?articleId=" + article_Id;
+		}
+		return null;
 
 	}
 
+	
+	/**
+	 * 
+	 * @Title: findCommentByArticleIdAndObeserver
+	 * @Description: 通过文章Id来查找与之相关的评论(不包括作者回复的)
+	 * @return String 返回类型
+	 */
+	@RequestMapping(value = "/comment_management")
+	public String findCommentByArticleIdAndObserver(@RequestParam("article_Id") String article_Id,
+			@RequestParam("observer_account") String observer_account,Model model) {
+		
+		List<Comment> comments = commentService.findCommentByArticleIdAndObserver(article_Id,observer_account);
+		if (comments != null)
+			model.addAttribute("comments", comments);
+		return "comment_management";
+
+	}
 }
