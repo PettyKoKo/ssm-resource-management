@@ -97,8 +97,10 @@
 					...
 				</div>
 				<div style="height: 60px">
+					<a href="#" style="color:red">${article.authorAccount }</a>&nbsp;&nbsp;&nbsp;
 					<fmt:formatDate value="${article.finishTime }" type="date"
 						pattern="yyyy-MM-dd HH:mm:ss" />
+					<span style="float: right;">评论数：${article.praise }&nbsp;&nbsp;&nbsp;</span>
 					<span style="float: right;">阅读数：${article.tread }&nbsp;&nbsp;&nbsp;</span>
 					<hr style="height: 1px;" color="#BDBDBD" />
 				</div>

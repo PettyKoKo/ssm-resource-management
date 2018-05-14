@@ -36,7 +36,6 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleService;
-	
 
 	/**
 	 * 
@@ -97,6 +96,7 @@ public class ArticleController {
 		for (Article article : articles) {
 			String content = article.getArticleContent();
 			article.setPlantext(RemoveHTML.Html2Text(content));
+			article.setAuthorAccount(account);
 		}
 		// 使用PageInfo包装查询后的结果
 		PageInfo page = new PageInfo(articles);
@@ -135,6 +135,9 @@ public class ArticleController {
 	@RequestMapping(value = "/article_details")
 	public String findArticleById(@RequestParam(value = "articleId") long articleId, Model model) {
 		Article article = articleService.findArticleById(articleId);
+		String account = articleService.findAccountByUserId(article.getAuthorId());
+		article.setAuthorAccount(account);
+
 		List<Comment> comments = articleService.findCommentByArticleId(articleId);
 		if (article != null) {
 			model.addAttribute("ArticleInfo", article);
@@ -226,8 +229,8 @@ public class ArticleController {
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/all_articles")
-	public String all_articles(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
-			Model model) throws ParseException {
+	public String all_articles(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model)
+			throws ParseException {
 		// 引入PageHelper分页插件
 		PageHelper.startPage(pn, 8);
 		List<Article> articles = articleService.getAll();

@@ -50,6 +50,10 @@ public class UserController {
 		return "about";
 	}
 	
+	@RequestMapping(value="/error")
+	public String error(){
+		return "error";
+	}
 	/**
 	 * 
 	 * @Title: checkUser_Account
@@ -129,4 +133,6 @@ public class UserController {
 		session.invalidate();
 		return "index";
 	}
+	
+	
 }

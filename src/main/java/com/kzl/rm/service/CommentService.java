@@ -40,6 +40,8 @@ public class CommentService {
 		int result = commentMapper.insertSelective(comment);
 		return result == 1;
 	}
+	
+	
 
 	
 }

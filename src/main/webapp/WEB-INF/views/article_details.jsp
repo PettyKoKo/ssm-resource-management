@@ -81,6 +81,7 @@
 						&nbsp;&nbsp;&nbsp;<label style="font-size: 25px">${ArticleInfo.articleName }</label><br>
 					</div>
 					<div style="height: 60px">
+						<a href="#" style="color: red">${ArticleInfo.authorAccount }</a>&nbsp;&nbsp;&nbsp;
 						<fmt:formatDate value="${ArticleInfo.finishTime }" type="date"
 							pattern="yyyy-MM-dd HH:mm:ss" />
 						<span style="float: right;">阅读数：${ArticleInfo.tread }&nbsp;&nbsp;&nbsp;</span>
@@ -121,6 +122,7 @@
 							<fmt:formatDate value="${comment.commentTime }" type="date"
 								pattern="yyyy-MM-dd HH:mm:ss" />
 							<a id="a1" href="#">删除</a>
+							<a id="a1" href="#">回复</a>
 						</div>
 						<div style="height: 35px">${comment.commentContent }</div>
 						<hr style="border: 1px dashed #BDBDBD" />

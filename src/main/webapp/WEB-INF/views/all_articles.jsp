@@ -101,7 +101,7 @@
 					<fmt:formatDate value="${article.finishTime }" type="date"
 						pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;&nbsp;&nbsp;
 					<a href="#">${article.articleType }</a>&nbsp;&nbsp;&nbsp;	
-					<span style="float: right;">${article.tread }&nbsp;评论&nbsp;&nbsp;&nbsp;</span>
+					<span style="float: right;">${article.praise }&nbsp;评论&nbsp;&nbsp;&nbsp;</span>
 					<span style="float: right;">${article.tread }&nbsp;阅读
 						&nbsp;&nbsp;</span>
 					<hr style="height: 1px;" color="#BDBDBD" />

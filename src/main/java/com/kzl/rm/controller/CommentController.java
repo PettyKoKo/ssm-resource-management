@@ -46,9 +46,22 @@ public class CommentController {
 		System.out.println(observer_account.length());
 		boolean result = commentService.saveArticle_Comment(article_Id, observer_account, comment_content);
 		if (result) {
-			return "";
+			return "redirect:/article_details?articleId=" + article_Id;
 		}
 		return "error";
 	}
+
 	
+	/**
+	 * 
+	 * @Title: comment_management
+	 * @Description: 评论管理功能
+	 * @return String 返回类型
+	 */
+	@RequestMapping(value="/comment_management")
+	public String comment_management() {
+		return "comment_management";
+
+	}
+
 }
