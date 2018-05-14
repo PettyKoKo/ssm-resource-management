@@ -20,6 +20,7 @@ import com.github.pagehelper.PageInfo;
 import com.kzl.rm.bean.Article;
 import com.kzl.rm.bean.Comment;
 import com.kzl.rm.service.ArticleService;
+import com.kzl.rm.service.UserService;
 import com.kzl.rm.utils.RemoveHTML;
 
 /**
@@ -35,6 +36,7 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleService;
+	
 
 	/**
 	 * 
@@ -233,6 +235,8 @@ public class ArticleController {
 		for (Article article : articles) {
 			String content = article.getArticleContent();
 			article.setPlantext(RemoveHTML.Html2Text(content));
+			String account = articleService.findAccountByUserId(article.getAuthorId());
+			article.setAuthorAccount(account);
 		}
 		// 使用PageInfo包装查询后的结果
 		PageInfo page = new PageInfo(articles);

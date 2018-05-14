@@ -77,7 +77,7 @@ public class ArticleService {
 	 * @Description: 获取某一用户的所有文章
 	 * @return List<Article> 返回类型
 	 */
-	public List<Article> getAllByAccount(int pn,String account) {
+	public List<Article> getAllByAccount(int pn, String account) {
 		User user = userMapper.findUserByAccount(account);
 		if (user != null) {
 			// 引入PageHelper分页插件
@@ -154,6 +154,19 @@ public class ArticleService {
 	public List<Comment> findCommentByArticleId(Long articleId) {
 		List<Comment> comments = commentMapper.selectByArticleId(articleId);
 		return comments;
+	}
+
+	/**
+	 * 
+	 * @Title: findAccountByUserId
+	 * @Description: 通过用户ID来查找用户账号
+	 * @return String 返回类型
+	 */
+	public String findAccountByUserId(Long authorId) {
+		User user = userMapper.selectByPrimaryKey(authorId);
+		if(user != null)
+			return user.getUserAccount();
+		return null;
 	}
 
 }

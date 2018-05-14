@@ -97,9 +97,13 @@
 					...
 				</div>
 				<div style="height: 60px">
+					<a href="#" style="color:red">${article.authorAccount }</a>&nbsp;&nbsp;&nbsp;
 					<fmt:formatDate value="${article.finishTime }" type="date"
-						pattern="yyyy-MM-dd HH:mm:ss" />
-					<span style="float: right;">阅读数：${article.tread }&nbsp;&nbsp;&nbsp;</span>
+						pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;&nbsp;&nbsp;
+					<a href="#">${article.articleType }</a>&nbsp;&nbsp;&nbsp;	
+					<span style="float: right;">${article.tread }&nbsp;评论&nbsp;&nbsp;&nbsp;</span>
+					<span style="float: right;">${article.tread }&nbsp;阅读
+						&nbsp;&nbsp;</span>
 					<hr style="height: 1px;" color="#BDBDBD" />
 				</div>
 			</c:forEach>
@@ -111,7 +115,8 @@
 			<ul class="pagination">
 				<li><a href="${APP_PATH }/all_articles?pn=1">首页</a></li>
 				<c:if test="${pageInfo.hasPreviousPage}">
-					<li><a href="${APP_PATH }/all_articles?pn=${pageInfo.pageNum-1}"
+					<li><a
+						href="${APP_PATH }/all_articles?pn=${pageInfo.pageNum-1}"
 						aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 				</c:if>
 				<c:forEach items="${pageInfo.navigatepageNums}" var="page_Num">
@@ -123,7 +128,8 @@
 					</c:if>
 				</c:forEach>
 				<c:if test="${pageInfo.hasNextPage}">
-					<li><a href="${APP_PATH }/all_articles?pn=${pageInfo.pageNum+1}"
+					<li><a
+						href="${APP_PATH }/all_articles?pn=${pageInfo.pageNum+1}"
 						aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 				</c:if>
 

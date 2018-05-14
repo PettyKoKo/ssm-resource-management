@@ -22,8 +22,18 @@ public class Article {
     private String plantext;
 
     private String articleContent;
+    
+    private String authorAccount;
 
-    public Long getArticleId() {
+    public String getAuthorAccount() {
+		return authorAccount;
+	}
+
+	public void setAuthorAccount(String authorAccount) {
+		this.authorAccount = authorAccount;
+	}
+
+	public Long getArticleId() {
         return articleId;
     }
 
