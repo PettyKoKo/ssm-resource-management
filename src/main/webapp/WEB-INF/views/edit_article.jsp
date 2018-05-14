@@ -32,8 +32,8 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="user_articles" style="color: black">我的文章</a></li>
-						<li><a href="forum" style="color: black">论坛</a></li>
+						<li><a href="user_articles" style="color: black">我的博客</a></li>
+						<li><a href="all_articles" style="color: black">博客</a></li>
 						<li><a href="question" style="color: black">问答</a></li>
 						<li><a href="activity" style="color: black">活动</a></li>
 						<li><a href="resource_upload" style="color: black">上传资源</a></li>
@@ -46,7 +46,7 @@
 						<button type="search" class="btn btn-default">搜索</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="write_article" style="color: black">写文章</a></li>
+						<li><a href="write_article" style="color: black">写博客</a></li>
 						<li><a href="about" style="color: black">关于我们</a></li>
 						<%
 							if (session.getAttribute("account") == null) {

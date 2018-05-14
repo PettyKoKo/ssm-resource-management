@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.kzl.rm.bean.Article;
 import com.kzl.rm.bean.Comment;
 import com.kzl.rm.bean.User;
@@ -68,6 +69,23 @@ public class ArticleService {
 			return count == 1;
 		}
 
+	}
+
+	/**
+	 * 
+	 * @Title: getAllByAccount
+	 * @Description: 获取某一用户的所有文章
+	 * @return List<Article> 返回类型
+	 */
+	public List<Article> getAllByAccount(int pn,String account) {
+		User user = userMapper.findUserByAccount(account);
+		if (user != null) {
+			// 引入PageHelper分页插件
+			PageHelper.startPage(pn, 8);
+			List<Article> articles = articleMapper.getAllByAccount(user.getUserId());
+			return articles;
+		}
+		return null;
 	}
 
 	/**
@@ -137,6 +155,5 @@ public class ArticleService {
 		List<Comment> comments = commentMapper.selectByArticleId(articleId);
 		return comments;
 	}
-	
-	
+
 }

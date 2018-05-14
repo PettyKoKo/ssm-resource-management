@@ -11,13 +11,10 @@
 <%
 	pageContext.setAttribute("APP_PATH", request.getContextPath());
 %>
-<link
-	href="${APP_PATH}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css"
+<link href="${APP_PATH}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
-<script
-	src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/static/js/jquery-1.12.4.min.js"></script>
-</head>
 </head>
 
 <body>
@@ -33,8 +30,8 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="user_articles" style="color: black">我的文章</a></li>
-						<li><a href="forum" style="color: black">论坛</a></li>
+						<li><a href="user_articles" style="color: black">我的博客</a></li>
+						<li><a href="all_articles" style="color: black">博客</a></li>
 						<li><a href="question" style="color: black">问答</a></li>
 						<li><a href="activity" style="color: black">活动</a></li>
 						<li><a href="resource_upload" style="color: black">上传资源</a></li>
@@ -47,7 +44,7 @@
 						<button type="search" class="btn btn-default">搜索</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="write_article" style="color: black">写文章</a></li>
+						<li><a href="write_article" style="color: black">写博客</a></li>
 						<li><a href="about" style="color: black">关于我们</a></li>
 						<%
 							if (session.getAttribute("account") == null) {
@@ -146,8 +143,7 @@
 				<ul class="pagination">
 					<li><a href="${APP_PATH }/article_management?pn=1">首页</a></li>
 					<c:if test="${pageInfo.hasPreviousPage}">
-						<li><a
-							href="${APP_PATH }/article_management?pn=${pageInfo.pageNum-1}"
+						<li><a href="${APP_PATH }/article_management?pn=${pageInfo.pageNum-1}"
 							aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 					</c:if>
 					<c:forEach items="${pageInfo.navigatepageNums}" var="page_Num">
@@ -160,8 +156,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${pageInfo.hasNextPage}">
-						<li><a
-							href="${APP_PATH }/article_management?pn=${pageInfo.pageNum+1}"
+						<li><a href="${APP_PATH }/article_management?pn=${pageInfo.pageNum+1}"
 							aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 					</c:if>
 

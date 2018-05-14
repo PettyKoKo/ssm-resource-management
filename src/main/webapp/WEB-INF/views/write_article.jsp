@@ -5,7 +5,7 @@
 
 <head>
 <meta charset="utf-8" />
-<title>写文章</title>
+<title>写博客</title>
 <link href="static/bootstrap-3.3.7-dist/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
 <script src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -15,7 +15,6 @@
 <script src="static/ueditor/ueditor.all.js"></script>
 <script src="static/ueditor/lang/zh-cn/zh-cn.js"></script>
 </head>
-
 <body>
 	<div class="container" style="background-color: #F2F2F2">
 		<div class="row clearfix">
@@ -29,8 +28,8 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="user_articles" style="color: black">我的文章</a></li>
-						<li><a href="forum" style="color: black">论坛</a></li>
+						<li><a href="user_articles" style="color: black">我的博客</a></li>
+						<li><a href="all_articles" style="color: black">博客</a></li>
 						<li><a href="question" style="color: black">问答</a></li>
 						<li><a href="activity" style="color: black">活动</a></li>
 						<li><a href="resource_upload" style="color: black">上传资源</a></li>
@@ -43,7 +42,7 @@
 						<button type="search" class="btn btn-default">搜索</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="write_article" style="color: black">写文章</a></li>
+						<li><a href="write_article" style="color: black">写博客</a></li>
 						<li><a href="about" style="color: black">关于我们</a></li>
 						<%
 							if (session.getAttribute("account") == null) {
@@ -81,14 +80,13 @@
 								<div>
 									<label>发表类型</label>&nbsp;&nbsp;<span id="selType_msg"
 										style="color: red; font-size: 12px"></span><br> <select
-										id="selType" style="height: 30px; width: 100px"
-										>
+										id="selType" style="height: 30px; width: 100px">
 										<option value="0">请选择</option>
 										<option value="1">原创</option>
 										<option value="2">转载</option>
 										<option value="4">翻译</option>
-									</select>
-									<input type="text" id="publishType" name="publishType"  style="display:none">
+									</select> <input type="text" id="publishType" name="publishType"
+										style="display: none">
 								</div>
 								<br>
 								<div>
@@ -122,8 +120,8 @@
 										style="width: 90px">安全</label> <input type="radio"
 										name="radio" value="13"><label style="width: 90px">程序人生</label>
 									<input type="radio" name="radio" value="14"><label
-										style="width: 90px">区块链</label>
-									<input type="text" id="article_type" name="article_type"  style="display:none">
+										style="width: 90px">区块链</label> <input type="text"
+										id="article_type" name="article_type" style="display: none">
 								</div>
 								<br> <label>文章内容</label>&nbsp;&nbsp;<span
 									id="article_content_msg" style="color: red; font-size: 12px"></span><br>
@@ -131,7 +129,8 @@
 									<script type="text/javascript" charset="utf-8">
 										UE.getEditor('editor');
 									</script>
-									<input type="text" id="article_content" name="article_content"  style="display:none">
+									<input type="text" id="article_content" name="article_content"
+										style="display: none">
 								</div>
 								<br> <br>
 								<div style="margin: 0 auto; width: 50%; height: 100%">

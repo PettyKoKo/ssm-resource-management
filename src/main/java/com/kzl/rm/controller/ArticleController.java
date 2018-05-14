@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,11 @@ public class ArticleController {
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/write_article")
-	public String write_article() {
+	public String write_article(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("account") == null)
+			return "login";
+
 		return "write_article";
 	}
 
@@ -63,10 +68,10 @@ public class ArticleController {
 		boolean result = articleService.user_publish_article(publishType, article_title, article_type, article_content,
 				user_account);
 		if (result) {
-			return user_articles(1, model);
+			return "redirect:/user_articles";
 		}
 
-		return "write_article";
+		return "redirect:/write_article";
 	}
 
 	/**
@@ -77,12 +82,15 @@ public class ArticleController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/user_articles")
-	public String user_articles(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model)
-			throws ParseException {
-		// 引入PageHelper分页插件
+	public String user_articles(HttpServletRequest request, @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			Model model) throws ParseException {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("account") == null)
+			return "login";
 
-		PageHelper.startPage(pn, 8);
-		List<Article> articles = articleService.getAll();
+		String account = (String) session.getAttribute("account");
+		// 引入PageHelper分页插件
+		List<Article> articles = articleService.getAllByAccount(pn, account);
 
 		for (Article article : articles) {
 			String content = article.getArticleContent();
@@ -90,6 +98,8 @@ public class ArticleController {
 		}
 		// 使用PageInfo包装查询后的结果
 		PageInfo page = new PageInfo(articles);
+		for (int a : page.getNavigatepageNums())
+			System.out.println(a);
 		model.addAttribute("pageInfo", page);
 		return "user_articles";
 	}
@@ -97,16 +107,15 @@ public class ArticleController {
 	/**
 	 * 
 	 * @Title: article_management
-	 * @Description: 实现文件管理功能
+	 * @Description: 实现文件管理功能(只能操作自己的文章)
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/article_management")
-	public String article_management(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model)
-			throws ParseException {
-		// 引入PageHelper分页插件
-
-		PageHelper.startPage(pn, 5);
-		List<Article> articles = articleService.getAll();
+	public String article_management(HttpServletRequest request,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model) throws ParseException {
+		HttpSession session = request.getSession();
+		String account = (String) session.getAttribute("account");
+		List<Article> articles = articleService.getAllByAccount(pn, account);
 
 		// 使用PageInfo包装查询后的结果
 		PageInfo page = new PageInfo(articles);
@@ -127,7 +136,7 @@ public class ArticleController {
 		List<Comment> comments = articleService.findCommentByArticleId(articleId);
 		if (article != null) {
 			model.addAttribute("ArticleInfo", article);
-			
+
 			if (comments != null)
 				model.addAttribute("comments", comments);
 
@@ -139,7 +148,7 @@ public class ArticleController {
 	/**
 	 * 
 	 * @Title: editArticle
-	 * @Description: 实现文章编辑功能
+	 * @Description: 实现文章编辑功能(只能操作自己的文章)
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/edit_article")
@@ -158,26 +167,27 @@ public class ArticleController {
 	/**
 	 * 
 	 * @Title: updataArticle
-	 * @Description: 实现文章修改功能
+	 * @Description: 实现文章修改功能(只能操作自己的文章)
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/update_article")
-	public String updataArticle(@RequestParam("article_Id") String article_Id,
+	public String updataArticle(HttpServletRequest request, @RequestParam("article_Id") String article_Id,
 			@RequestParam("publishType") String publishType, @RequestParam("article_title") String article_title,
 			@RequestParam("article_type") String article_type, @RequestParam("article_content") String article_content,
 			Model model) {
-
+		HttpSession session = request.getSession();
+		String account = (String) session.getAttribute("account");
 		boolean result = articleService.updataArticle(article_Id, publishType, article_title, article_type,
 				article_content);
 
 		if (result) {
-			PageHelper.startPage(1, 5);
-			List<Article> articles = articleService.getAll();
+
+			List<Article> articles = articleService.getAllByAccount(1, account);
 
 			// 使用PageInfo包装查询后的结果
 			PageInfo page = new PageInfo(articles);
 			model.addAttribute("pageInfo", page);
-			return "article_management";
+			return "redirect:/article_management";
 		}
 
 		return "error";
@@ -187,15 +197,17 @@ public class ArticleController {
 	/**
 	 * 
 	 * @Title: deleteArticle
-	 * @Description: 实现文章删除功能
+	 * @Description: 实现文章删除功能(只能操作自己的文章)
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/delete_article")
-	public String deleteArticle(@RequestParam("article_Id") String article_Id, Model model) {
+	public String deleteArticle(HttpServletRequest request, @RequestParam("article_Id") String article_Id,
+			Model model) {
+		HttpSession session = request.getSession();
+		String account = (String) session.getAttribute("account");
 		boolean result = articleService.deleteArticle(article_Id);
 		if (result) {
-			PageHelper.startPage(1, 5);
-			List<Article> articles = articleService.getAll();
+			List<Article> articles = articleService.getAllByAccount(1, account);
 
 			// 使用PageInfo包装查询后的结果
 			PageInfo page = new PageInfo(articles);
@@ -205,4 +217,26 @@ public class ArticleController {
 		return "error";
 	}
 
+	/**
+	 * 
+	 * @Title: index
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @return String 返回类型
+	 */
+	@RequestMapping(value = "/all_articles")
+	public String all_articles(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			Model model) throws ParseException {
+		// 引入PageHelper分页插件
+		PageHelper.startPage(pn, 8);
+		List<Article> articles = articleService.getAll();
+
+		for (Article article : articles) {
+			String content = article.getArticleContent();
+			article.setPlantext(RemoveHTML.Html2Text(content));
+		}
+		// 使用PageInfo包装查询后的结果
+		PageInfo page = new PageInfo(articles);
+		model.addAttribute("pageInfo", page);
+		return "all_articles";
+	}
 }

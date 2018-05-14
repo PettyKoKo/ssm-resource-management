@@ -80,7 +80,7 @@ public class UserController {
 			@RequestParam("email") String email, @RequestParam("position") String position) {
 		boolean b = userService.user_register(account, password, username, phone, email, position);
 		if (b) {
-			return "login";
+			return "redirect:/login";
 		}
 		return "register";
 	}
@@ -119,7 +119,7 @@ public class UserController {
 			return "PasswordError";
 		HttpSession session = request.getSession();
 		session.setAttribute("account", account);
-		return "index";
+		return "redirect:/index";
 	}
 	
 	@RequestMapping(value="/logout")
