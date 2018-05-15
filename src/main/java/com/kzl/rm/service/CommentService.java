@@ -54,8 +54,8 @@ public class CommentService {
 		return count == 1;
 	}
 
-	public List<Comment> findCommentByArticleIdAndObserver(String article_Id, String observer_account) {
-		List<Comment> comments = commentMapper.findCommentByArticleIdAndObserver(Long.parseLong(article_Id),observer_account);
+	public List<Comment> findCommentByObserver(String reviewer_account) {
+		List<Comment> comments = commentMapper.findCommentByObserver(reviewer_account);
 		return null;
 	}
 

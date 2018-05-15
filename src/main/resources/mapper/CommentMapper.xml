@@ -290,15 +290,14 @@
 		where article_id = #{articleId,jdbcType=BIGINT}
 		order by comment_time Desc
 	</select>
-	<select id="selectByArticleId" 
+	<select id="findCommentByObserver" parameterType="java.lang.String"
 		resultMap="ResultMapWithBLOBs">
 		select
 		<include refid="Base_Column_List" />
 		,
 		<include refid="Blob_Column_List" />
 		from comment
-		where article_id = #{articleId,jdbcType=BIGINT}
-		and observer_account !=#{observerAccount,jdbcType=VARCHAR}
+		where reviewer_account = #{reviewer_account,jdbcType=VARCHAR}
 		order by comment_time Desc
 	</select>
 </mapper>

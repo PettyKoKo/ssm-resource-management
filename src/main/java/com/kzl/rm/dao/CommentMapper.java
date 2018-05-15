@@ -36,5 +36,5 @@ public interface CommentMapper {
     
     List<Comment> selectByArticleId(Long articleId);
 
-	List<Comment> findCommentByArticleIdAndObserver(Long articleId, String observerAccount);
+	List<Comment> findCommentByObserver(String reviewer_account);
 }

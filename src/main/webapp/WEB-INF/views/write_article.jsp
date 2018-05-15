@@ -14,26 +14,30 @@
 <script src="static/ueditor/ueditor.config.js"></script>
 <script src="static/ueditor/ueditor.all.js"></script>
 <script src="static/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="static/js/mouse.js"></script>
 </head>
 <body>
 	<div class="container" style="background-color: #F2F2F2">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
 				<nav class="navbar navbar-default" role="navigation">
-				<div class="navbar-header">
-
-					<a class="navbar-brand" href="index" style="color: black">首页</a>
-				</div>
-
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="user_articles" style="color: black">我的博客</a></li>
-						<li><a href="all_articles" style="color: black">博客</a></li>
-						<li><a href="question" style="color: black">问答</a></li>
-						<li><a href="activity" style="color: black">活动</a></li>
-						<li><a href="resource_upload" style="color: black">上传资源</a></li>
-						<li><a href="resource_download" style="color: black">下载资源</a></li>
+						<li><a href="index" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">首页</a></li>
+						<li><a href="user_articles" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">我的博客</a></li>
+						<li><a href="all_articles" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">博客</a></li>
+						<li><a href="question" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">问答</a></li>
+						<li><a href="activity" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">活动</a></li>
+						<li><a href="resource_upload" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">上传资源</a></li>
+						<li><a href="resource_download" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">下载资源</a></li>
 					</ul>
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
@@ -42,20 +46,24 @@
 						<button type="search" class="btn btn-default">搜索</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="write_article" style="color: black">写博客</a></li>
-						<li><a href="about" style="color: black">关于我们</a></li>
+						<li><a href="write_article" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">写博客</a></li>
+						<li><a href="about" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">关于我们</a></li>
 						<%
 							if (session.getAttribute("account") == null) {
 						%>
-						<li><a href="login" style="color: black">登录</a></li>
+						<li><a href="login" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">登录</a></li>
 						<%
 							} else {
 						%>
-						<li><a href="#" style="color: red"><%=session.getAttribute("account")%></a>
+						<li><a href="#" style="color: green"><%=session.getAttribute("account")%></a>
 							<%
 								}
 							%>
-						<li><a href="logout" style="color: black">注销</a></li>
+						<li><a href="logout" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">注销</a></li>
 					</ul>
 				</div>
 
@@ -68,10 +76,10 @@
 						<div class="collapse navbar-collapse"
 							id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
-								<li><a href="write_article" style="color: black;">发布文章</a></li>
-								<li><a href="article_management" style="color: black;">文章管理</a></li>
-								<li><a href="comment_management" style="color: black">评论管理</a></li>
-								<li><a href="userInfo_management" style="color: black;">个人信息管理</a></li>
+								<li><a href="write_article" style="color: black;"  onmouseover="mouseover(this)"onmouseout="mouseout(this)">发布文章</a></li>
+								<li><a href="article_management" style="color: black;" onmouseover="mouseover(this)" onmouseout="mouseout(this)">文章管理</a></li>
+								<li><a href="comment_management" style="color: black" onmouseover="mouseover(this)" onmouseout="mouseout(this)">评论管理</a></li>
+								<li><a href="userInfo_management" style="color: black;" onmouseover="mouseover(this)" onmouseout="mouseout(this)">个人信息管理</a></li>
 							</ul>
 						</div>
 						</nav>

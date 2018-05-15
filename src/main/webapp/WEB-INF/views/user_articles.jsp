@@ -16,31 +16,30 @@
 <script
 	src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/static/js/jquery-1.12.4.min.js"></script>
+<script src="static/js/mouse.js"></script>
 </head>
 <body>
 	<div class="container" style="background-color: #F2F2F2">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
 				<nav class="navbar navbar-default" role="navigation">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span><span
-							class="icon-bar"></span><span class="icon-bar"></span><span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index" style="color: black">首页</a>
-				</div>
-
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="user_articles" style="color: black">我的博客</a></li>
-						<li><a href="all_articles" style="color: black">博客</a></li>
-						<li><a href="question" style="color: black">问答</a></li>
-						<li><a href="activity" style="color: black">活动</a></li>
-						<li><a href="resource_upload" style="color: black">上传资源</a></li>
-						<li><a href="resource_download" style="color: black">下载资源</a></li>
+						<li><a href="index" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">首页</a></li>
+						<li><a href="user_articles" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">我的博客</a></li>
+						<li><a href="all_articles" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">博客</a></li>
+						<li><a href="question" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">问答</a></li>
+						<li><a href="activity" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">活动</a></li>
+						<li><a href="resource_upload" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">上传资源</a></li>
+						<li><a href="resource_download" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">下载资源</a></li>
 					</ul>
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
@@ -49,20 +48,24 @@
 						<button type="search" class="btn btn-default">搜索</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="write_article" style="color: black">写博客</a></li>
-						<li><a href="about" style="color: black">关于我们</a></li>
+						<li><a href="write_article" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">写博客</a></li>
+						<li><a href="about" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">关于我们</a></li>
 						<%
 							if (session.getAttribute("account") == null) {
 						%>
-						<li><a href="login" style="color: black">登录</a></li>
+						<li><a href="login" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">登录</a></li>
 						<%
 							} else {
 						%>
-						<li><a href="#" style="color: red"><%=session.getAttribute("account")%></a>
+						<li><a href="#" style="color: green"><%=session.getAttribute("account")%></a>
 							<%
 								}
 							%>
-						<li><a href="logout" style="color: black">注销</a></li>
+						<li><a href="logout" style="color: black"
+							onmouseover="mouseover(this)" onmouseout="mouseout(this)">注销</a></li>
 					</ul>
 				</div>
 
@@ -85,7 +88,8 @@
 					</c:if>
 					&nbsp;&nbsp;&nbsp;<a
 						href="${APP_PATH }/article_details?articleId=${article.articleId}"
-						style="font-size: 25px; color: #696969; text-decoration: none">${article.articleName }</a><br>
+						onmouseover="mouseover(this)" onmouseout="mouseout(this)"
+						style="font-size: 25px; color: black; text-decoration: none">${article.articleName }</a><br>
 				</div>
 				<div style="height: 60px">
 					<c:if test="${fn:length(article.plantext)>150}">
@@ -97,7 +101,7 @@
 					...
 				</div>
 				<div style="height: 60px">
-					<a href="#" style="color:red">${article.authorAccount }</a>&nbsp;&nbsp;&nbsp;
+					<a href="#" style="color: red">${article.authorAccount }</a>&nbsp;&nbsp;&nbsp;
 					<fmt:formatDate value="${article.finishTime }" type="date"
 						pattern="yyyy-MM-dd HH:mm:ss" />
 					<span style="float: right;">评论数：${article.praise }&nbsp;&nbsp;&nbsp;</span>
@@ -113,7 +117,8 @@
 			<ul class="pagination">
 				<li><a href="${APP_PATH }/user_articles?pn=1">首页</a></li>
 				<c:if test="${pageInfo.hasPreviousPage}">
-					<li><a href="${APP_PATH }/user_articles?pn=${pageInfo.pageNum-1}"
+					<li><a
+						href="${APP_PATH }/user_articles?pn=${pageInfo.pageNum-1}"
 						aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 				</c:if>
 				<c:forEach items="${pageInfo.navigatepageNums}" var="page_Num">
@@ -125,7 +130,8 @@
 					</c:if>
 				</c:forEach>
 				<c:if test="${pageInfo.hasNextPage}">
-					<li><a href="${APP_PATH }/user_articles?pn=${pageInfo.pageNum+1}"
+					<li><a
+						href="${APP_PATH }/user_articles?pn=${pageInfo.pageNum+1}"
 						aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 				</c:if>
 

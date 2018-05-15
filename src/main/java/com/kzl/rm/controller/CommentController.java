@@ -57,7 +57,6 @@ public class CommentController {
 		return "error";
 	}
 
-
 	/**
 	 * 
 	 * @Title: mycomment_management
@@ -86,7 +85,6 @@ public class CommentController {
 
 	}
 
-	
 	/**
 	 * 
 	 * @Title: findCommentByArticleIdAndObeserver
@@ -94,10 +92,10 @@ public class CommentController {
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/comment_management")
-	public String findCommentByArticleIdAndObserver(@RequestParam("article_Id") String article_Id,
-			@RequestParam("observer_account") String observer_account,Model model) {
-		
-		List<Comment> comments = commentService.findCommentByArticleIdAndObserver(article_Id,observer_account);
+	public String findCommentByObserver(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		String reviewer_account = (String) session.getAttribute("account");
+		List<Comment> comments = commentService.findCommentByObserver(reviewer_account);
 		if (comments != null)
 			model.addAttribute("comments", comments);
 		return "comment_management";
