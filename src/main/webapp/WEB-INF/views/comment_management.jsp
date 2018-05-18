@@ -7,7 +7,7 @@
 <html>
 
 <head>
-<title>评论管理</title>
+<title>我收到的评论</title>
 <%
 	pageContext.setAttribute("APP_PATH", request.getContextPath());
 %>
@@ -71,45 +71,44 @@
 					</ul>
 				</div>
 				</nav>
-				<div class="row clearfix">
-					<div class="col-md-1 column"></div>
-					<div class="col-md-10 column" style="background-color: white">
-						<nav class="navbar navbar-default" role="navigation">
-						<div class="navbar-header"></div>
-						<div class="collapse navbar-collapse"
-							id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-								<li><a href="write_article" style="color: black;"
-									onmouseover="mouseover(this)" onmouseout="mouseout(this)">发布文章</a></li>
-								<li><a href="article_management" style="color: black;"
-									onmouseover="mouseover(this)" onmouseout="mouseout(this)">文章管理</a></li>
-								<li><a href="comment_management" style="color: black"
-									onmouseover="mouseover(this)" onmouseout="mouseout(this)">评论管理</a></li>
-								<li><a href="userInfo_management" style="color: black;"
-									onmouseover="mouseover(this)" onmouseout="mouseout(this)">个人信息管理</a></li>
-							</ul>
-						</div>
-						</nav>
-						<div style="height: 40px">
-							<a href="comment_management" style="color: green;">对我文章的评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
-							<a href="mycomment_management" style="color: green;">我发表的评论</a>
-						</div>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-1 column"></div>
+				<div class="col-md-10 column" style="background-color: white">
+					<nav class="navbar navbar-default" role="navigation">
+					<div class="collapse navbar-collapse"
+						id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li><a href="write_article" style="color: black;"
+								onmouseover="mouseover(this)" onmouseout="mouseout(this)">发布文章</a></li>
+							<li><a href="article_management" style="color: black;"
+								onmouseover="mouseover(this)" onmouseout="mouseout(this)">文章管理</a></li>
+							<li><a href="comment_management" style="color: black"
+								onmouseover="mouseover(this)" onmouseout="mouseout(this)">评论管理</a></li>
+							<li><a href="userInfo_management" style="color: black;"
+								onmouseover="mouseover(this)" onmouseout="mouseout(this)">个人信息管理</a></li>
+						</ul>
 					</div>
-				</div>
-				<div class="row clearfix">
-					<c:forEach items="${comments }" var="comment">
-						<div>
+					</nav>
+					<div style="height: 70px">
+						<a href="comment_management" style="color: green;">我收到的评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="mycomment_management" style="color: green;">我发表的评论</a>
+						<hr style="height: 1px;" color="#BDBDBD" />
+					</div>
+					<div>
+						<c:forEach items="${comments }" var="comment">
 							<div style="height: 30px">
 								<label>${comment.observerAccount }</label>&nbsp;&nbsp;&nbsp;&nbsp;
 								<fmt:formatDate value="${comment.commentTime }" type="date"
-									pattern="yyyy-MM-dd HH:mm:ss" />
+									pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;&nbsp;&nbsp;&nbsp;
+								<span>回复了你关于文章</span>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="article_details?articleId=${comment.articleId}">${comment.articleName }</a>
 							</div>
 							<div style="height: 35px">${comment.commentContent }</div>
 							<hr style="border: 1px dashed #BDBDBD" />
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
 				</div>
-				<div class="row clearfix"></div>
 			</div>
 			<div class="col-md-4 column"></div>
 			<div class="col-md-8 column">

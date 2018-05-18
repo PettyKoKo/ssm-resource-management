@@ -30,12 +30,13 @@ public class CommentService {
 	 * @return boolean 返回类型
 	 */
 	public boolean saveArticle_Comment(String article_Id, String observer_account, String comment_content,
-			String reviewer_account) {
+			String reviewer_account,String article_name) {
 		Comment comment = new Comment();
 		comment.setArticleId(Long.parseLong(article_Id));
 		comment.setObserverAccount(observer_account);
 		comment.setCommentContent(comment_content);
 		comment.setReviewerAccount(reviewer_account);
+		comment.setArticleName(article_name);
 		Date now = new Date();
 		comment.setCommentTime(now);
 
@@ -54,9 +55,14 @@ public class CommentService {
 		return count == 1;
 	}
 
-	public List<Comment> findCommentByObserver(String reviewer_account) {
-		List<Comment> comments = commentMapper.findCommentByObserver(reviewer_account);
-		return null;
+	public List<Comment> findCommentByReviewer(String reviewer_account) {
+		List<Comment> comments = commentMapper.findCommentByReviewer(reviewer_account);
+		return comments;
+	}
+
+	public List<Comment> findCommentByObserver(String observer_account) {
+		List<Comment> comments = commentMapper.findCommentByObserver(observer_account);
+		return comments;		
 	}
 
 }

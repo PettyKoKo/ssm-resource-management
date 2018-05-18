@@ -1,12 +1,9 @@
 package com.kzl.rm.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +17,6 @@ import com.github.pagehelper.PageInfo;
 import com.kzl.rm.bean.Article;
 import com.kzl.rm.bean.Comment;
 import com.kzl.rm.service.ArticleService;
-import com.kzl.rm.service.UserService;
 import com.kzl.rm.utils.RemoveHTML;
 
 /**
@@ -62,7 +58,7 @@ public class ArticleController {
 	@RequestMapping(value = "/user_publish_article")
 	public String user_publish_article(HttpServletRequest request, @RequestParam("publishType") String publishType,
 			@RequestParam("article_title") String article_title, @RequestParam("article_type") String article_type,
-			@RequestParam("article_content") String article_content, Model model) throws ParseException {
+			@RequestParam("article_content") String article_content) throws ParseException {
 		HttpSession session = request.getSession();
 		String user_account = (String) session.getAttribute("account");
 		// System.out.println(article_type);
@@ -100,8 +96,6 @@ public class ArticleController {
 		}
 		// 使用PageInfo包装查询后的结果
 		PageInfo page = new PageInfo(articles);
-		for (int a : page.getNavigatepageNums())
-			System.out.println(a);
 		model.addAttribute("pageInfo", page);
 		return "user_articles";
 	}

@@ -63,9 +63,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/checkUser_Account")
 	public String checkUser_Account(@RequestParam("user_account") String user_account) {
-		System.out.println(user_account);
 		boolean b = userService.checkUser_Account(user_account);
-		System.out.println(b);
 		if (b) {
 			return "success";
 		}

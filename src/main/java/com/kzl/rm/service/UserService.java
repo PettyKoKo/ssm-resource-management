@@ -33,9 +33,7 @@ public class UserService {
 		UserExample example = new UserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andUserAccountEqualTo(user_account);
-		System.out.println(criteria);
 		long count = userMapper.countByExample(example);
-		System.out.println(count);
 		return count == 0;
 	}
 

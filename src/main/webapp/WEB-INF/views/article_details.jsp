@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,7 +23,7 @@
 	<div class="container" style="background-color: #F2F2F2">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
-								<nav class="navbar navbar-default" role="navigation">
+				<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
@@ -60,7 +61,7 @@
 						<%
 							} else {
 						%>
-						<li><a href="#" style="color:green"><%=session.getAttribute("account")%></a>
+						<li><a href="#" style="color: green"><%=session.getAttribute("account")%></a>
 							<%
 								}
 							%>
@@ -115,8 +116,13 @@
 						value="发表评论" /> <input type="text" id="observer_account"
 						name="observer_account" style="display: none"
 						value="<%=session.getAttribute("account")%>"> <input
-						type="text" id="article_Id" name="article_Id"
-						style="display: none" value="${ArticleInfo.articleId}">
+						type="text" name="article_Id"
+						style="display: none" value="${ArticleInfo.articleId}"> <input
+						type="text"  name="reviewer_account"
+						style="display: none" value="${ArticleInfo.authorAccount}"><input
+						type="text"  name="article_name"
+						style="display: none" value="${ArticleInfo.articleName}">
+
 				</div>
 				<hr style="height: 1px;" color="#BDBDBD" />
 			</form>
@@ -127,8 +133,9 @@
 							<label>${comment.observerAccount }</label>&nbsp;&nbsp;&nbsp;&nbsp;
 							<fmt:formatDate value="${comment.commentTime }" type="date"
 								pattern="yyyy-MM-dd HH:mm:ss" />
-							<a href="${APP_PATH }/deleteComment?comment_id=${comment.commentId}&article_Id=${comment.articleId}">删除</a>
-							<a style="cursor:pointer" onclick="reply()">回复</a>
+							<a
+								href="${APP_PATH }/deleteComment?comment_id=${comment.commentId}&article_Id=${comment.articleId}">删除</a>
+							<a style="cursor: pointer" onclick="reply()">回复</a>
 						</div>
 						<div style="height: 35px">${comment.commentContent }</div>
 						<hr style="border: 1px dashed #BDBDBD" />

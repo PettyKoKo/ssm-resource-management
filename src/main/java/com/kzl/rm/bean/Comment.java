@@ -13,6 +13,8 @@ public class Comment {
 
     private String reviewerAccount;
 
+    private String articleName;
+
     private String commentContent;
 
     public Long getCommentId() {
@@ -53,6 +55,14 @@ public class Comment {
 
     public void setReviewerAccount(String reviewerAccount) {
         this.reviewerAccount = reviewerAccount;
+    }
+
+    public String getArticleName() {
+        return articleName;
+    }
+
+    public void setArticleName(String articleName) {
+        this.articleName = articleName;
     }
 
     public String getCommentContent() {

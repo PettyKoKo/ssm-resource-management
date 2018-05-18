@@ -7,6 +7,7 @@
 		<result column="article_id" jdbcType="BIGINT" property="articleId" />
 		<result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
 		<result column="reviewer_account" jdbcType="VARCHAR" property="reviewerAccount" />
+		<result column="article_name" jdbcType="VARCHAR" property="articleName" />
 	</resultMap>
 	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
 		type="com.kzl.rm.bean.Comment">
@@ -27,7 +28,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -59,7 +61,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -77,7 +80,9 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
-		comment_id, observer_account, article_id, comment_time, reviewer_account
+		comment_id, observer_account, article_id, comment_time,
+		reviewer_account,
+		article_name
 	</sql>
 	<sql id="Blob_Column_List">
 		comment_content
@@ -124,7 +129,8 @@
 		where comment_id = #{commentId,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from comment
+		delete from
+		comment
 		where comment_id = #{commentId,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.kzl.rm.bean.CommentExample">
@@ -134,14 +140,17 @@
 		</if>
 	</delete>
 	<insert id="insert" parameterType="com.kzl.rm.bean.Comment">
-		insert into comment (comment_id, observer_account, article_id,
-		comment_time, reviewer_account, comment_content
-		)
-		values (#{commentId,jdbcType=BIGINT}, #{observerAccount,jdbcType=VARCHAR},
+		insert into comment
+		(comment_id, observer_account, article_id,
+		comment_time,
+		reviewer_account, article_name,
+		comment_content)
+		values
+		(#{commentId,jdbcType=BIGINT}, #{observerAccount,jdbcType=VARCHAR},
 		#{articleId,jdbcType=BIGINT},
-		#{commentTime,jdbcType=TIMESTAMP}, #{reviewerAccount,jdbcType=VARCHAR},
-		#{commentContent,jdbcType=LONGVARCHAR}
-		)
+		#{commentTime,jdbcType=TIMESTAMP},
+		#{reviewerAccount,jdbcType=VARCHAR}, #{articleName,jdbcType=VARCHAR},
+		#{commentContent,jdbcType=LONGVARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.kzl.rm.bean.Comment">
 		insert into comment
@@ -160,6 +169,9 @@
 			</if>
 			<if test="reviewerAccount != null">
 				reviewer_account,
+			</if>
+			<if test="articleName != null">
+				article_name,
 			</if>
 			<if test="commentContent != null">
 				comment_content,
@@ -181,6 +193,9 @@
 			<if test="reviewerAccount != null">
 				#{reviewerAccount,jdbcType=VARCHAR},
 			</if>
+			<if test="articleName != null">
+				#{articleName,jdbcType=VARCHAR},
+			</if>
 			<if test="commentContent != null">
 				#{commentContent,jdbcType=LONGVARCHAR},
 			</if>
@@ -200,7 +215,8 @@
 				comment_id = #{record.commentId,jdbcType=BIGINT},
 			</if>
 			<if test="record.observerAccount != null">
-				observer_account = #{record.observerAccount,jdbcType=VARCHAR},
+				observer_account =
+				#{record.observerAccount,jdbcType=VARCHAR},
 			</if>
 			<if test="record.articleId != null">
 				article_id = #{record.articleId,jdbcType=BIGINT},
@@ -209,10 +225,15 @@
 				comment_time = #{record.commentTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="record.reviewerAccount != null">
-				reviewer_account = #{record.reviewerAccount,jdbcType=VARCHAR},
+				reviewer_account =
+				#{record.reviewerAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="record.articleName != null">
+				article_name = #{record.articleName,jdbcType=VARCHAR},
 			</if>
 			<if test="record.commentContent != null">
-				comment_content = #{record.commentContent,jdbcType=LONGVARCHAR},
+				comment_content =
+				#{record.commentContent,jdbcType=LONGVARCHAR},
 			</if>
 		</set>
 		<if test="_parameter != null">
@@ -224,9 +245,14 @@
 		set comment_id = #{record.commentId,jdbcType=BIGINT},
 		observer_account = #{record.observerAccount,jdbcType=VARCHAR},
 		article_id = #{record.articleId,jdbcType=BIGINT},
-		comment_time = #{record.commentTime,jdbcType=TIMESTAMP},
-		reviewer_account = #{record.reviewerAccount,jdbcType=VARCHAR},
-		comment_content = #{record.commentContent,jdbcType=LONGVARCHAR}
+		comment_time =
+		#{record.commentTime,jdbcType=TIMESTAMP},
+		reviewer_account =
+		#{record.reviewerAccount,jdbcType=VARCHAR},
+		article_name =
+		#{record.articleName,jdbcType=VARCHAR},
+		comment_content =
+		#{record.commentContent,jdbcType=LONGVARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -236,8 +262,12 @@
 		set comment_id = #{record.commentId,jdbcType=BIGINT},
 		observer_account = #{record.observerAccount,jdbcType=VARCHAR},
 		article_id = #{record.articleId,jdbcType=BIGINT},
-		comment_time = #{record.commentTime,jdbcType=TIMESTAMP},
-		reviewer_account = #{record.reviewerAccount,jdbcType=VARCHAR}
+		comment_time =
+		#{record.commentTime,jdbcType=TIMESTAMP},
+		reviewer_account =
+		#{record.reviewerAccount,jdbcType=VARCHAR},
+		article_name =
+		#{record.articleName,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -257,6 +287,9 @@
 			<if test="reviewerAccount != null">
 				reviewer_account = #{reviewerAccount,jdbcType=VARCHAR},
 			</if>
+			<if test="articleName != null">
+				article_name = #{articleName,jdbcType=VARCHAR},
+			</if>
 			<if test="commentContent != null">
 				comment_content = #{commentContent,jdbcType=LONGVARCHAR},
 			</if>
@@ -264,30 +297,55 @@
 		where comment_id = #{commentId,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kzl.rm.bean.Comment">
-		update comment
+		update
+		comment
 		set observer_account = #{observerAccount,jdbcType=VARCHAR},
 		article_id = #{articleId,jdbcType=BIGINT},
-		comment_time = #{commentTime,jdbcType=TIMESTAMP},
-		reviewer_account = #{reviewerAccount,jdbcType=VARCHAR},
-		comment_content = #{commentContent,jdbcType=LONGVARCHAR}
-		where comment_id = #{commentId,jdbcType=BIGINT}
+		comment_time =
+		#{commentTime,jdbcType=TIMESTAMP},
+		reviewer_account =
+		#{reviewerAccount,jdbcType=VARCHAR},
+		article_name =
+		#{articleName,jdbcType=VARCHAR},
+		comment_content =
+		#{commentContent,jdbcType=LONGVARCHAR}
+		where comment_id =
+		#{commentId,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.kzl.rm.bean.Comment">
 		update comment
-		set observer_account = #{observerAccount,jdbcType=VARCHAR},
-		article_id = #{articleId,jdbcType=BIGINT},
-		comment_time = #{commentTime,jdbcType=TIMESTAMP},
-		reviewer_account = #{reviewerAccount,jdbcType=VARCHAR}
-		where comment_id = #{commentId,jdbcType=BIGINT}
+		set
+		observer_account = #{observerAccount,jdbcType=VARCHAR},
+		article_id =
+		#{articleId,jdbcType=BIGINT},
+		comment_time =
+		#{commentTime,jdbcType=TIMESTAMP},
+		reviewer_account =
+		#{reviewerAccount,jdbcType=VARCHAR},
+		article_name =
+		#{articleName,jdbcType=VARCHAR}
+		where comment_id =
+		#{commentId,jdbcType=BIGINT}
 	</update>
 	<select id="selectByArticleId" parameterType="java.lang.Long"
-		resultMap="ResultMapWithBLOBs">
+	resultMap="ResultMapWithBLOBs">
 		select
 		<include refid="Base_Column_List" />
 		,
 		<include refid="Blob_Column_List" />
 		from comment
 		where article_id = #{articleId,jdbcType=BIGINT}
+		order by comment_time Desc
+	</select>
+	<select id="findCommentByReviewer" parameterType="java.lang.String"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from comment
+		where reviewer_account =
+		#{reviewerAccount,jdbcType=VARCHAR}
 		order by comment_time Desc
 	</select>
 	<select id="findCommentByObserver" parameterType="java.lang.String"
@@ -297,7 +355,8 @@
 		,
 		<include refid="Blob_Column_List" />
 		from comment
-		where reviewer_account = #{reviewer_account,jdbcType=VARCHAR}
+		where observer_account =
+		#{observerAccount,jdbcType=VARCHAR}
 		order by comment_time Desc
 	</select>
 </mapper>

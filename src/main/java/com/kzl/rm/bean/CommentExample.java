@@ -424,6 +424,76 @@ public class CommentExample {
             addCriterion("reviewer_account not between", value1, value2, "reviewerAccount");
             return (Criteria) this;
         }
+
+        public Criteria andArticleNameIsNull() {
+            addCriterion("article_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameIsNotNull() {
+            addCriterion("article_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameEqualTo(String value) {
+            addCriterion("article_name =", value, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameNotEqualTo(String value) {
+            addCriterion("article_name <>", value, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameGreaterThan(String value) {
+            addCriterion("article_name >", value, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameGreaterThanOrEqualTo(String value) {
+            addCriterion("article_name >=", value, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameLessThan(String value) {
+            addCriterion("article_name <", value, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameLessThanOrEqualTo(String value) {
+            addCriterion("article_name <=", value, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameLike(String value) {
+            addCriterion("article_name like", value, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameNotLike(String value) {
+            addCriterion("article_name not like", value, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameIn(List<String> values) {
+            addCriterion("article_name in", values, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameNotIn(List<String> values) {
+            addCriterion("article_name not in", values, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameBetween(String value1, String value2) {
+            addCriterion("article_name between", value1, value2, "articleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNameNotBetween(String value1, String value2) {
+            addCriterion("article_name not between", value1, value2, "articleName");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -87,9 +87,23 @@
 							</ul>
 						</div>
 						</nav>
-						<div style="height: 40px">
-							<a href="comment_management" style="color: green;">对我文章的评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<div style="height: 70px">
+							<a href="comment_management" style="color: green;">我收到的评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
 							<a href="mycomment_management" style="color: green;">我发表的评论</a>
+							<hr style="height: 1px;" color="#BDBDBD" />
+						</div>
+						<div>
+							<c:forEach items="${comments }" var="comment">
+								<div style="height: 30px">
+									<label>我</label>&nbsp;&nbsp;&nbsp;&nbsp;
+									<fmt:formatDate value="${comment.commentTime }" type="date"
+										pattern="yyyy-MM-dd HH:mm:ss" />
+									&nbsp;&nbsp;&nbsp;&nbsp; <span>评论了 ${comment.reviewerAccount } 关于文章</span>&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="article_details?articleId=${comment.articleId}">${comment.articleName }</a>
+								</div>
+								<div style="height: 35px">${comment.commentContent }</div>
+								<hr style="border: 1px dashed #BDBDBD" />
+							</c:forEach>
 						</div>
 					</div>
 				</div>
