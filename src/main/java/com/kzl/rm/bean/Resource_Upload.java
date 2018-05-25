@@ -13,6 +13,10 @@ public class Resource_Upload {
 
     private Date uploadTime;
 
+    private String resourceType;
+
+    private String resourceDescribe;
+
     public Long getResourceId() {
         return resourceId;
     }
@@ -51,5 +55,21 @@ public class Resource_Upload {
 
     public void setUploadTime(Date uploadTime) {
         this.uploadTime = uploadTime;
+    }
+
+    public String getResourceType() {
+        return resourceType;
+    }
+
+    public void setResourceType(String resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public String getResourceDescribe() {
+        return resourceDescribe;
+    }
+
+    public void setResourceDescribe(String resourceDescribe) {
+        this.resourceDescribe = resourceDescribe;
     }
 }

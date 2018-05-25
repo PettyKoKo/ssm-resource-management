@@ -2,6 +2,8 @@ package com.kzl.rm.dao;
 
 import com.kzl.rm.bean.Resource_Download;
 import com.kzl.rm.bean.Resource_DownloadExample;
+import com.kzl.rm.bean.Resource_Upload;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,6 @@ public interface Resource_DownloadMapper {
     int updateByPrimaryKeySelective(Resource_Download record);
 
     int updateByPrimaryKey(Resource_Download record);
+
+	
 }

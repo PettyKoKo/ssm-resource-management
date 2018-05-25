@@ -8,8 +8,11 @@ function check_comment_content() {
 	return true;
 }
 
-function reply(){
+function reply(str){
+	alert(str);
 	document.getElementById("comment_content").focus();
+	document.getElementById("reviewer_account").value=str;
+	
 }
 
 // 评论发布按钮响应事件

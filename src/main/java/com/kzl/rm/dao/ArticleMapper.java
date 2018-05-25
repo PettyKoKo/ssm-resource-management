@@ -37,4 +37,22 @@ public interface ArticleMapper {
 	List<Article> getAllByAccount(Long authorId);
 
 	List<Article> getAll();
+
+	long countOriginal(Long authorId);
+
+	long countReprint(Long userId);
+
+	long countVisit(Long userId);
+
+	long countDiscuss(Long userId);
+
+	long countTranslate(Long userId);
+
+	int updataArticleAddTread(Long article_Id);
+
+	int updataArticleDelTread(Long article_Id);
+
+	int updateArticleAddPraise(Long article_Id);
+
+	List<Article> getAllSearch(@Param("search_name") String search_name);
 }

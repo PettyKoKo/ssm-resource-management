@@ -32,18 +32,14 @@
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">我的博客</a></li>
 						<li><a href="all_articles" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">博客</a></li>
-						<li><a href="question" style="color: black"
-							onmouseover="mouseover(this)" onmouseout="mouseout(this)">问答</a></li>
-						<li><a href="activity" style="color: black"
-							onmouseover="mouseover(this)" onmouseout="mouseout(this)">活动</a></li>
 						<li><a href="resource_upload" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">上传资源</a></li>
 						<li><a href="resource_download" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">下载资源</a></li>
 					</ul>
-					<form class="navbar-form navbar-left" role="search">
+					<form class="navbar-form navbar-left" role="search" action="search_article" method="post">
 						<div class="form-group">
-							<input type="text" class="form-control" />
+							<input type="text" class="form-control" name="search_name" placeholder="请输入搜索内容"/>
 						</div>
 						<button type="search" class="btn btn-default">搜索</button>
 					</form>
@@ -60,7 +56,7 @@
 						<%
 							} else {
 						%>
-						<li><a href="#" style="color: green"><%=session.getAttribute("account")%></a>
+						<li><a href="userInfo_management" style="color: green"><%=session.getAttribute("account")%></a>
 							<%
 								}
 							%>
@@ -104,8 +100,8 @@
 					<a href="#" style="color: red">${article.authorAccount }</a>&nbsp;&nbsp;&nbsp;
 					<fmt:formatDate value="${article.finishTime }" type="date"
 						pattern="yyyy-MM-dd HH:mm:ss" />
-					<span style="float: right;">评论数：${article.praise }&nbsp;&nbsp;&nbsp;</span>
-					<span style="float: right;">阅读数：${article.tread }&nbsp;&nbsp;&nbsp;</span>
+					<span style="float: right;">评论数：${article.tread }条&nbsp;&nbsp;&nbsp;</span>
+					<span style="float: right;">阅读数：${article.praise }次&nbsp;&nbsp;&nbsp;</span>
 					<hr style="height: 1px;" color="#BDBDBD" />
 				</div>
 			</c:forEach>

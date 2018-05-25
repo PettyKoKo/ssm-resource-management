@@ -90,4 +90,19 @@ public class UserService {
 		return user;
 	}
 
+	public int updateImageId(String user_account, Long imageId) {
+		int count = userMapper.updateImageId(user_account,imageId);
+		return count;
+	}
+
+	public boolean update_userInfo(String username, String position, String email, String telephone,String account) {
+		int count = userMapper.update_userInfo(username,position,email,telephone,account);
+		return count==1;
+	}
+
+	public boolean update_password(String account, String password) {
+		int count = userMapper.update_password(account,password);
+		return count==1;
+	}
+
 }

@@ -32,18 +32,14 @@
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">我的博客</a></li>
 						<li><a href="all_articles" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">博客</a></li>
-						<li><a href="question" style="color: black"
-							onmouseover="mouseover(this)" onmouseout="mouseout(this)">问答</a></li>
-						<li><a href="activity" style="color: black"
-							onmouseover="mouseover(this)" onmouseout="mouseout(this)">活动</a></li>
 						<li><a href="resource_upload" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">上传资源</a></li>
 						<li><a href="resource_download" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">下载资源</a></li>
 					</ul>
-					<form class="navbar-form navbar-left" role="search">
+					<form class="navbar-form navbar-left" role="search" action="search_article" method="post">
 						<div class="form-group">
-							<input type="text" class="form-control" />
+							<input type="text" class="form-control" name="search_name" placeholder="请输入搜索内容"/>
 						</div>
 						<button type="search" class="btn btn-default">搜索</button>
 					</form>
@@ -60,7 +56,7 @@
 						<%
 							} else {
 						%>
-						<li><a href="#" style="color: green"><%=session.getAttribute("account")%></a>
+						<li><a href="userInfo_management" style="color: green"><%=session.getAttribute("account")%></a>
 							<%
 								}
 							%>
@@ -85,7 +81,7 @@
 							</ul>
 						</div>
 						</nav>
-						<div style="height: 50px">
+						<!-- <div style="height: 50px">
 							<label>类别：</label><select id="sel_articleType"
 								style="height: 30px; width: 110px">
 								<option value="0">全部</option>
@@ -111,16 +107,16 @@
 								<option value="3">翻译</option>
 							</select>
 						</div>
+						 -->
 						<div>
 							<table class="table">
 								<thead>
 									<tr>
 										<th style="width: 350px">标题</th>
-										<th style="width: 50px; text-align: center;">状态</th>
-										<th style="width: 50px; text-align: center;">阅读</th>
-										<th style="width: 50px; text-align: center;">评论</th>
-										<th style="width: 70px; text-align: center;">评论权限</th>
-										<th style="width: 170px; text-align: center;">操作</th>
+										<th style="width: 60px; text-align: center;">状态</th>
+										<th style="width: 60px; text-align: center;">阅读</th>
+										<th style="width: 60px; text-align: center;">评论</th>
+										<th style="width: 150px; text-align: center;">操作</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -133,9 +129,8 @@
 											<td></td>
 											<td>${article.tread }</td>
 											<td>0</td>
-											<td><a href="#">禁止评论</a></td>
 											<td><a href="${APP_PATH }/edit_article?articleId=${article.articleId}">编辑</a> | <a
-												href="${APP_PATH }/delete_article?article_Id=${article.articleId}" >删除</a>
+												href="${APP_PATH }/delete_article?article_Id=${article.articleId}" >删除</a></td>
 										</tr>
 									</c:forEach>
 								</tbody>

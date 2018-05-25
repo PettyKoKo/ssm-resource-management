@@ -164,9 +164,102 @@ public class ArticleService {
 	 */
 	public String findAccountByUserId(Long authorId) {
 		User user = userMapper.selectByPrimaryKey(authorId);
-		if(user != null)
+		if (user != null)
 			return user.getUserAccount();
 		return null;
+	}
+
+	/**
+	 * 
+	 * @Title: countOriginal
+	 * @Description: 统计原创文章个数
+	 * @return long 返回类型
+	 */
+	public long countOriginal(Long userId) {
+		long original = articleMapper.countOriginal(userId);
+		return original;
+	}
+
+	/**
+	 * 
+	 * @Title: countReprint
+	 * @Description: 统计转载文章个数
+	 * @return long 返回类型
+	 */
+	public long countReprint(Long userId) {
+		long reprint = articleMapper.countReprint(userId);
+		return reprint;
+	}
+
+	/**
+	 * 
+	 * @Title: countVisit
+	 * @Description: 统计总阅读（浏览）数
+	 * @return long 返回类型
+	 */
+	public long countVisit(Long userId) {
+		long visit = articleMapper.countVisit(userId);
+		return visit;
+	}
+
+	/**
+	 * 
+	 * @Title: countDiscuss
+	 * @Description: 统计总评论数
+	 * @return long 返回类型
+	 */
+	public long countDiscuss(Long userId) {
+		long discuss = articleMapper.countDiscuss(userId);
+		return discuss;
+	}
+
+	/**
+	 * 
+	 * @Title: countTranslate
+	 * @Description: 统计翻译文章总数
+	 * @return long 返回类型
+	 */
+	public long countTranslate(Long userId) {
+		long translate = articleMapper.countTranslate(userId);
+		return translate;
+	}
+
+	/**
+	 * 
+	 * @Title: updataArticleAddTread
+	 * @Description: 增加评论，评论数加1
+	 * @return int 返回类型
+	 */
+	public boolean updataArticleAddTread(String article_Id) {
+		int count = articleMapper.updataArticleAddTread(Long.parseLong(article_Id));
+		return count == 1;
+	}
+
+	/**
+	 * 
+	 * @Title: updataArticleDelTread
+	 * @Description: 删除评论，评论数减1
+	 * @return boolean 返回类型
+	 */
+	public boolean updataArticleDelTread(String article_Id) {
+		int count = articleMapper.updataArticleDelTread(Long.parseLong(article_Id));
+		return count == 1;
+	}
+
+	public boolean updateArticleAddPraise(Long article_Id) {
+		int count = articleMapper.updateArticleAddPraise(article_Id);
+		return count == 1;
+	}
+
+	/**
+	 * 
+	 * @Title: getAllSearch
+	 * @Description:模糊搜索
+	 * @return List<Article> 返回类型
+	 */
+	public List<Article> getAllSearch(String search_name) {
+		List<Article> articles = articleMapper.getAllSearch(search_name);
+		return articles;
 	}
 
 }

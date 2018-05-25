@@ -195,9 +195,11 @@
 		where image_id =
 		#{imageId,jdbcType=BIGINT}
 	</update>
-	<select id="findIdByImageName" parameterType="com.kzl.rm.bean.Person_Image"
-		resultType="java.lang.Long">
-		select image_id from personal_image
+	<select id="findImageByName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from personal_image
 		where image_name = #{imageName,jdbcType=VARCHAR}
 	</select>
 </mapper>

@@ -20,6 +20,18 @@ public class User {
     private String birthday;
 
     private String password;
+    
+    private Long original;
+    
+    private Long reprint;
+    
+    private Long translate;
+    
+    private Long visit;
+    
+    private Long discuss;
+    
+    private String imageurl;
 
     public Long getUserId() {
         return userId;
@@ -100,4 +112,54 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	public Long getOriginal() {
+		return original;
+	}
+
+	public void setOriginal(Long original) {
+		this.original = original;
+	}
+
+	public Long getReprint() {
+		return reprint;
+	}
+
+	public void setReprint(Long reprint) {
+		this.reprint = reprint;
+	}
+
+	public Long getTranslate() {
+		return translate;
+	}
+
+	public void setTranslate(Long translate) {
+		this.translate = translate;
+	}
+
+	public Long getVisit() {
+		return visit;
+	}
+
+	public void setVisit(Long visit) {
+		this.visit = visit;
+	}
+
+	public Long getDiscuss() {
+		return discuss;
+	}
+
+	public void setDiscuss(Long discuss) {
+		this.discuss = discuss;
+	}
+
+	public String getImageurl() {
+		return imageurl;
+	}
+
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
+	}
+    
+    
 }

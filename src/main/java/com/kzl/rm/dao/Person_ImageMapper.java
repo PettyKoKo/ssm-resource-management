@@ -28,5 +28,5 @@ public interface Person_ImageMapper {
 
     int updateByPrimaryKey(Person_Image record);
 
-	long findIdByImageName(String imagename);
+	Person_Image findImageByName(String imageName);
 }

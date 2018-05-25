@@ -16,15 +16,25 @@ public interface Resource_UploadMapper {
 
     int insertSelective(Resource_Upload record);
 
+    List<Resource_Upload> selectByExampleWithBLOBs(Resource_UploadExample example);
+
     List<Resource_Upload> selectByExample(Resource_UploadExample example);
 
     Resource_Upload selectByPrimaryKey(Long resourceId);
 
     int updateByExampleSelective(@Param("record") Resource_Upload record, @Param("example") Resource_UploadExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") Resource_Upload record, @Param("example") Resource_UploadExample example);
+
     int updateByExample(@Param("record") Resource_Upload record, @Param("example") Resource_UploadExample example);
 
     int updateByPrimaryKeySelective(Resource_Upload record);
 
+    int updateByPrimaryKeyWithBLOBs(Resource_Upload record);
+
     int updateByPrimaryKey(Resource_Upload record);
+
+	List<Resource_Upload> getAllByAccount(String uploaderAccount);
+
+	List<Resource_Upload> getALL();
 }

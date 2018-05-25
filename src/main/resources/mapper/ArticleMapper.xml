@@ -374,4 +374,60 @@
 		where author_id = #{authorId,jdbcType=BIGINT}
 		order by finish_time Desc
 	</select>
+	<select id="countOriginal"  parameterType="java.lang.Long" resultType="java.lang.Long">
+		select count(*) 
+		from article
+		where author_id=#{authorId,jdbcType=BIGINT}
+		and publish_type = "原创"	
+	</select>
+	<select id="countReprint" parameterType="java.lang.Long" resultType="java.lang.Long">
+		select count(*)
+		from article
+		where author_id=#{authorId,jdbcType=BIGINT}
+		and publish_type = "转载"	
+	</select>
+	<select id="countTranslate" parameterType="java.lang.Long" resultType="java.lang.Long">
+		select count(*)
+		from article
+		where author_id=#{authorId,jdbcType=BIGINT}
+		and publish_type = "翻译"	
+	</select>
+	<select id="countVisit" parameterType="java.lang.Long" resultType="java.lang.Long">
+		select sum(praise)
+		from article
+		where author_id=#{authorId,jdbcType=BIGINT}
+	</select>
+	<select id="countDiscuss" parameterType="java.lang.Long" resultType="java.lang.Long">
+		select sum(tread)
+		from article
+		where author_id=#{authorId,jdbcType=BIGINT}
+	</select>
+	<update id="updataArticleAddTread" parameterType="java.lang.Long">
+		update article
+		set tread = tread +1
+		where article_id = #{articleId,jdbcType=BIGINT}
+	</update>
+	<update id="updataArticleDelTread" parameterType="java.lang.Long">
+		update article
+		set tread = tread -1
+		where article_id = #{articleId,jdbcType=BIGINT}
+	</update>
+	<update id="updateArticleAddPraise" parameterType="java.lang.Long">
+		update article
+		set praise = praise+1
+		where article_id = #{articleId,jdbcType=BIGINT}
+	</update>
+	<select id="getAllSearch" parameterType="java.lang.String"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from article
+		where publish_type like '%${search_name}%' or 
+		article_name like '%${search_name}%' or
+		article_type like '%${search_name}%' or
+		article_content like '%${search_name}%'
+		order by finish_time Desc
+	</select>
 </mapper>

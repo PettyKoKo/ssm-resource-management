@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kzl.rm.bean.Comment;
+import com.kzl.rm.service.ArticleService;
 import com.kzl.rm.service.CommentService;
 
 /**
@@ -28,6 +29,10 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 
+	@Autowired
+	ArticleService articleSerice;
+	
+	
 	/**
 	 * 
 	 * @Title: saveArticle_Comment
@@ -52,6 +57,8 @@ public class CommentController {
 		boolean result = commentService.saveArticle_Comment(article_Id, observer_account, comment_content,
 				reviewer_account, article_name);
 		if (result) {
+			//更新文章表，评论数加1
+			articleSerice.updataArticleAddTread(article_Id);
 			return "redirect:/article_details?articleId=" + article_Id;
 		}
 		return "error";
@@ -68,6 +75,7 @@ public class CommentController {
 			@RequestParam("article_Id") String article_Id, Model model) {
 		boolean result = commentService.deleteComment(comment_id);
 		if (result) {
+			articleSerice.updataArticleDelTread(article_Id);
 			return "redirect:/article_details?articleId=" + article_Id;
 		}
 		return null;

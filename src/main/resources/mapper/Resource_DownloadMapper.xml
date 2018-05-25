@@ -193,4 +193,5 @@
       download_time = #{downloadTime,jdbcType=TIMESTAMP}
     where resource_id = #{resourceId,jdbcType=BIGINT}
   </update>
+  
 </mapper>

@@ -7,6 +7,10 @@
     <result column="resource_url" jdbcType="VARCHAR" property="resourceUrl" />
     <result column="uploader_account" jdbcType="VARCHAR" property="uploaderAccount" />
     <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime" />
+    <result column="resource_type" jdbcType="VARCHAR" property="resourceType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kzl.rm.bean.Resource_Upload">
+    <result column="resource_describe" jdbcType="LONGVARCHAR" property="resourceDescribe" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,8 +71,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    resource_id, resource_name, resource_url, uploader_account, upload_time
+    resource_id, resource_name, resource_url, uploader_account, upload_time, resource_type
   </sql>
+  <sql id="Blob_Column_List">
+    resource_describe
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.kzl.rm.bean.Resource_UploadExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from resource_upload
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.kzl.rm.bean.Resource_UploadExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -83,9 +106,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from resource_upload
     where resource_id = #{resourceId,jdbcType=BIGINT}
   </select>
@@ -101,9 +126,11 @@
   </delete>
   <insert id="insert" parameterType="com.kzl.rm.bean.Resource_Upload">
     insert into resource_upload (resource_id, resource_name, resource_url, 
-      uploader_account, upload_time)
+      uploader_account, upload_time, resource_type, 
+      resource_describe)
     values (#{resourceId,jdbcType=BIGINT}, #{resourceName,jdbcType=VARCHAR}, #{resourceUrl,jdbcType=VARCHAR}, 
-      #{uploaderAccount,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP})
+      #{uploaderAccount,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP}, #{resourceType,jdbcType=VARCHAR}, 
+      #{resourceDescribe,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kzl.rm.bean.Resource_Upload">
     insert into resource_upload
@@ -123,6 +150,12 @@
       <if test="uploadTime != null">
         upload_time,
       </if>
+      <if test="resourceType != null">
+        resource_type,
+      </if>
+      <if test="resourceDescribe != null">
+        resource_describe,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="resourceId != null">
@@ -139,6 +172,12 @@
       </if>
       <if test="uploadTime != null">
         #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resourceType != null">
+        #{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceDescribe != null">
+        #{resourceDescribe,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,7 +205,26 @@
       <if test="record.uploadTime != null">
         upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.resourceType != null">
+        resource_type = #{record.resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceDescribe != null">
+        resource_describe = #{record.resourceDescribe,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update resource_upload
+    set resource_id = #{record.resourceId,jdbcType=BIGINT},
+      resource_name = #{record.resourceName,jdbcType=VARCHAR},
+      resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
+      uploader_account = #{record.uploaderAccount,jdbcType=VARCHAR},
+      upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      resource_type = #{record.resourceType,jdbcType=VARCHAR},
+      resource_describe = #{record.resourceDescribe,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -177,7 +235,8 @@
       resource_name = #{record.resourceName,jdbcType=VARCHAR},
       resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
       uploader_account = #{record.uploaderAccount,jdbcType=VARCHAR},
-      upload_time = #{record.uploadTime,jdbcType=TIMESTAMP}
+      upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      resource_type = #{record.resourceType,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,7 +256,23 @@
       <if test="uploadTime != null">
         upload_time = #{uploadTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="resourceType != null">
+        resource_type = #{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceDescribe != null">
+        resource_describe = #{resourceDescribe,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where resource_id = #{resourceId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kzl.rm.bean.Resource_Upload">
+    update resource_upload
+    set resource_name = #{resourceName,jdbcType=VARCHAR},
+      resource_url = #{resourceUrl,jdbcType=VARCHAR},
+      uploader_account = #{uploaderAccount,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      resource_type = #{resourceType,jdbcType=VARCHAR},
+      resource_describe = #{resourceDescribe,jdbcType=LONGVARCHAR}
     where resource_id = #{resourceId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kzl.rm.bean.Resource_Upload">
@@ -205,7 +280,25 @@
     set resource_name = #{resourceName,jdbcType=VARCHAR},
       resource_url = #{resourceUrl,jdbcType=VARCHAR},
       uploader_account = #{uploaderAccount,jdbcType=VARCHAR},
-      upload_time = #{uploadTime,jdbcType=TIMESTAMP}
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      resource_type = #{resourceType,jdbcType=VARCHAR}
     where resource_id = #{resourceId,jdbcType=BIGINT}
   </update>
+  <select id="getAllByAccount" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from resource_upload
+    where uploader_account = #{uploaderAccount,jdbcType=VARCHAR}
+    order by upload_time Desc
+  </select>
+  <select id="getALL"  resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from resource_upload
+    order by upload_time Desc
+  </select>
 </mapper>

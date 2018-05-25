@@ -336,4 +336,24 @@
 		from user
 		where user_account = #{userAccount,jdbcType=VARCHAR} 
 	</select>
+	<update id="updateImageId">
+		update user 
+		set personal_image_id = #{personalImageId,jdbcType=BIGINT}
+		where user_account = #{userAccount,jdbcType=VARCHAR} 
+	</update>
+	<update id="update_userInfo">
+		update user
+		set user_name =
+		#{userName,jdbcType=VARCHAR},
+		position =
+		#{position,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		telephone = #{telephone,jdbcType=VARCHAR}
+		where user_account = #{userAccount,jdbcType=VARCHAR} 
+	</update>
+	<update id="update_password">
+		update user
+		set password = #{password,jdbcType=VARCHAR}
+		where user_account = #{userAccount,jdbcType=VARCHAR} 
+	</update>
 </mapper>

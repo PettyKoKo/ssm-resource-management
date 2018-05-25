@@ -7,7 +7,7 @@
 <html>
 
 <head>
-<title>个人信息管理</title>
+<title>个人详细信息</title>
 <%
 	pageContext.setAttribute("APP_PATH", request.getContextPath());
 %>
@@ -18,6 +18,7 @@
 	src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/static/js/jquery-1.12.4.min.js"></script>
 <script src="static/js/mouse.js"></script>
+<script src="static/js/image_upload.js"></script>
 </head>
 
 <body>
@@ -34,18 +35,14 @@
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">我的博客</a></li>
 						<li><a href="all_articles" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">博客</a></li>
-						<li><a href="question" style="color: black"
-							onmouseover="mouseover(this)" onmouseout="mouseout(this)">问答</a></li>
-						<li><a href="activity" style="color: black"
-							onmouseover="mouseover(this)" onmouseout="mouseout(this)">活动</a></li>
 						<li><a href="resource_upload" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">上传资源</a></li>
 						<li><a href="resource_download" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">下载资源</a></li>
 					</ul>
-					<form class="navbar-form navbar-left" role="search">
+					<form class="navbar-form navbar-left" role="search" action="search_article" method="post">
 						<div class="form-group">
-							<input type="text" class="form-control" />
+							<input type="text" class="form-control" name="search_name" placeholder="请输入搜索内容"/>
 						</div>
 						<button type="search" class="btn btn-default">搜索</button>
 					</form>
@@ -62,7 +59,7 @@
 						<%
 							} else {
 						%>
-						<li><a href="#" style="color: green"><%=session.getAttribute("account")%></a>
+						<li><a href="userInfo_management" style="color: green"><%=session.getAttribute("account")%></a>
 							<%
 								}
 							%>
@@ -91,52 +88,70 @@
 					</div>
 					</nav>
 					<div style="height: 70px">
-						<a href="comment_management" style="color: green;">我收到的评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="mycomment_management" style="color: green;">我发表的评论</a>
+						<a href="userInfo_management" style="color: green;">个人详细信息</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="change_userInfo" style="color: green;">修改信息</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="change_password" style="color: green;">更换密码</a>
 						<hr style="height: 1px;" color="#BDBDBD" />
 					</div>
 					<div>
-						<c:forEach items="${comments }" var="comment">
-							<div style="height: 30px">
-								<label>${comment.observerAccount }</label>&nbsp;&nbsp;&nbsp;&nbsp;
-								<fmt:formatDate value="${comment.commentTime }" type="date"
-									pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;&nbsp;&nbsp;&nbsp;
-								<span>回复了你关于文章</span>&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="article_details?articleId=${comment.articleId}">${comment.articleName }</a>
+						<div class="col-md-4 column">
+							<div style="height: 30px"></div>
+							<center>
+								<img alt="头像" src="${userInfo.imageurl}"
+									style="width: 150px; height: 150px;" />
+							</center>
+							<br>
+							<center>
+								<form action="upload_image" method="post"
+									enctype="multipart/form-data">
+									<span>更换个人头像</span> <input type="file" id="upload" name="upload"
+										style="width: 200px"
+										accept="image/gif,image/jpeg,image/jpg,image/png,image/svg">
+									<span style="color: red" id="image-msg"></span><br> <input
+										type="submit" class="btn btn-default" value="上传"
+										style="width: 160px; background: red; color: white;" />
+								</form>
+							</center>
+							<div style="height: 30px"></div>
+						</div>
+						<div class="col-md-8 column">
+							<div style="height: 30px"></div>
+							<div style="font-size: 16px;">
+								<span>账号：</span><input type="text"
+									value="${userInfo.userAccount}"
+									style="border: none; outline: none;" readonly="readonly" /> <span>姓名：</span><input
+									type="text" value="${userInfo.userName}"
+									style="border: none; outline: none;" readonly="readonly" /><br>
+								<span>职位：</span><input type="text" value="${userInfo.position}"
+									style="border: none; outline: none;" readonly="readonly" /> <span>邮箱：</span><input
+									type="text" value="${userInfo.email}"
+									style="border: none; outline: none;" readonly="readonly" /><br>
+								<span>手机号：</span><input type="text"
+									value="${userInfo.telephone}"
+									style="border: none; outline: none;" readonly="readonly" /><br>
+								<br>
 							</div>
-							<div style="height: 35px">${comment.commentContent }</div>
-							<hr style="border: 1px dashed #BDBDBD" />
-						</c:forEach>
+							<div style="font-size: 16px;">
+								<span>原创：</span><input type="text" value="${userInfo.original}篇"
+									style="border: none; outline: none;" readonly="readonly" /> <span>转载：</span><input
+									type="text" value="${userInfo.reprint}篇"
+									style="border: none; outline: none;" readonly="readonly" /><br>
+								<span>翻译：</span><input type="text"
+									value="${userInfo.translate}篇"
+									style="border: none; outline: none;" readonly="readonly" /><br>
+								<br> <span>访问：</span><input type="text"
+									value="${userInfo.visit}次" style="border: none; outline: none;"
+									readonly="readonly" /> <span>评论：</span><input type="text"
+									value="${userInfo.discuss}条"
+									style="border: none; outline: none;" readonly="readonly" /><br>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-4 column"></div>
-			<div class="col-md-8 column">
-				<ul class="pagination">
-					<li><a href="${APP_PATH }/article_management?pn=1">首页</a></li>
-					<c:if test="${pageInfo.hasPreviousPage}">
-						<li><a
-							href="${APP_PATH }/article_management?pn=${pageInfo.pageNum-1}"
-							aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-					</c:if>
-					<c:forEach items="${pageInfo.navigatepageNums}" var="page_Num">
-						<c:if test="${page_Num  == pageInfo.pageNum }">
-							<li class="active"><a href="#">${page_Num }</a></li>
-						</c:if>
-						<c:if test="${page_Num != pageInfo.pageNum }">
-							<li><a
-								href="${APP_PATH }/article_management?pn=${page_Num }">${page_Num }</a></li>
-						</c:if>
-					</c:forEach>
-					<c:if test="${pageInfo.hasNextPage}">
-						<li><a
-							href="${APP_PATH }/article_management?pn=${pageInfo.pageNum+1}"
-							aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-					</c:if>
+				<div class="col-md-1 column"></div>
+				<div class="col-md-4 column"></div>
+				<div class="col-md-8 column" style="height: 80px"></div>
 
-					<li><a
-						href="${APP_PATH }/article_management?pn=${pageInfo.pages}">末页</a></li>
-				</ul>
 			</div>
 		</div>
 	</div>

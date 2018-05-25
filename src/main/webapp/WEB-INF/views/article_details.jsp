@@ -33,18 +33,14 @@
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">我的博客</a></li>
 						<li><a href="all_articles" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">博客</a></li>
-						<li><a href="question" style="color: black"
-							onmouseover="mouseover(this)" onmouseout="mouseout(this)">问答</a></li>
-						<li><a href="activity" style="color: black"
-							onmouseover="mouseover(this)" onmouseout="mouseout(this)">活动</a></li>
 						<li><a href="resource_upload" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">上传资源</a></li>
 						<li><a href="resource_download" style="color: black"
 							onmouseover="mouseover(this)" onmouseout="mouseout(this)">下载资源</a></li>
 					</ul>
-					<form class="navbar-form navbar-left" role="search">
+					<form class="navbar-form navbar-left" role="search" action="search_article" method="post">
 						<div class="form-group">
-							<input type="text" class="form-control" />
+							<input type="text" class="form-control" name="search_name" placeholder="请输入搜索内容"/>
 						</div>
 						<button type="search" class="btn btn-default">搜索</button>
 					</form>
@@ -61,7 +57,7 @@
 						<%
 							} else {
 						%>
-						<li><a href="#" style="color: green"><%=session.getAttribute("account")%></a>
+						<li><a href="userInfo_management" style="color: green"><%=session.getAttribute("account")%></a>
 							<%
 								}
 							%>
@@ -90,7 +86,7 @@
 						<a href="#" style="color: red">${ArticleInfo.authorAccount }</a>&nbsp;&nbsp;&nbsp;
 						<fmt:formatDate value="${ArticleInfo.finishTime }" type="date"
 							pattern="yyyy-MM-dd HH:mm:ss" />
-						<span style="float: right;">阅读数：${ArticleInfo.tread }&nbsp;&nbsp;&nbsp;</span>
+						<span style="float: right;">阅读数：${ArticleInfo.praise }&nbsp;&nbsp;&nbsp;</span>
 						<hr style="height: 1px;" color="#BDBDBD" />
 					</div>
 					${ArticleInfo.articleContent }
@@ -102,6 +98,9 @@
 
 		<div class="col-md-1 column"></div>
 		<div class="col-md-10 column" style="background-color: white">
+			<%
+				if (session.getAttribute("account") != null) {
+			%>
 			<form method="post" action="comment_article">
 				<div style="height: 90px;">
 					<textarea name="comment_content" id="comment_content"
@@ -118,7 +117,7 @@
 						value="<%=session.getAttribute("account")%>"> <input
 						type="text" name="article_Id"
 						style="display: none" value="${ArticleInfo.articleId}"> <input
-						type="text"  name="reviewer_account"
+						type="text" id="reviewer_account" name="reviewer_account"
 						style="display: none" value="${ArticleInfo.authorAccount}"><input
 						type="text"  name="article_name"
 						style="display: none" value="${ArticleInfo.articleName}">
@@ -126,22 +125,26 @@
 				</div>
 				<hr style="height: 1px;" color="#BDBDBD" />
 			</form>
+			
 			<div>
 				<c:forEach items="${comments }" var="comment">
 					<div>
 						<div style="height: 30px">
 							<label>${comment.observerAccount }</label>&nbsp;&nbsp;&nbsp;&nbsp;
 							<fmt:formatDate value="${comment.commentTime }" type="date"
-								pattern="yyyy-MM-dd HH:mm:ss" />
-							<a
-								href="${APP_PATH }/deleteComment?comment_id=${comment.commentId}&article_Id=${comment.articleId}">删除</a>
-							<a style="cursor: pointer" onclick="reply()">回复</a>
+								pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;&nbsp;
+							评论了 <label>${comment.reviewerAccount }</label>&nbsp;&nbsp;
+							<c:if test='${comment.observerAccount ==account ||  ArticleInfo.authorAccount ==account}'>
+								<a href="${APP_PATH }/deleteComment?comment_id=${comment.commentId}&article_Id=${comment.articleId}">删除</a>
+							</c:if>
+							<a style="cursor: pointer" onclick='reply("${comment.observerAccount }")'>回复</a>
 						</div>
 						<div style="height: 35px">${comment.commentContent }</div>
 						<hr style="border: 1px dashed #BDBDBD" />
 					</div>
 				</c:forEach>
 			</div>
+			<%} %>
 		</div>
 		<div class="col-md-1 column"></div>
 	</div>

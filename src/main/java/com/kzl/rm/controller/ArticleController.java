@@ -78,6 +78,7 @@ public class ArticleController {
 	 * @return String 返回类型
 	 * @throws ParseException
 	 */
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/user_articles")
 	public String user_articles(HttpServletRequest request, @RequestParam(value = "pn", defaultValue = "1") Integer pn,
 			Model model) throws ParseException {
@@ -95,6 +96,7 @@ public class ArticleController {
 			article.setAuthorAccount(account);
 		}
 		// 使用PageInfo包装查询后的结果
+		@SuppressWarnings("unchecked")
 		PageInfo page = new PageInfo(articles);
 		model.addAttribute("pageInfo", page);
 		return "user_articles";
@@ -126,12 +128,13 @@ public class ArticleController {
 	 * @Description: 实现文章详细页跳转功能
 	 * @return String 返回类型
 	 */
+	@SuppressWarnings("unused")
 	@RequestMapping(value = "/article_details")
 	public String findArticleById(@RequestParam(value = "articleId") long articleId, Model model) {
 		Article article = articleService.findArticleById(articleId);
 		String account = articleService.findAccountByUserId(article.getAuthorId());
 		article.setAuthorAccount(account);
-
+		articleService.updateArticleAddPraise(articleId);
 		List<Comment> comments = articleService.findCommentByArticleId(articleId);
 		if (article != null) {
 			model.addAttribute("ArticleInfo", article);
@@ -169,6 +172,7 @@ public class ArticleController {
 	 * @Description: 实现文章修改功能(只能操作自己的文章)
 	 * @return String 返回类型
 	 */
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/update_article")
 	public String updataArticle(HttpServletRequest request, @RequestParam("article_Id") String article_Id,
 			@RequestParam("publishType") String publishType, @RequestParam("article_title") String article_title,
@@ -184,6 +188,7 @@ public class ArticleController {
 			List<Article> articles = articleService.getAllByAccount(1, account);
 
 			// 使用PageInfo包装查询后的结果
+			@SuppressWarnings("unchecked")
 			PageInfo page = new PageInfo(articles);
 			model.addAttribute("pageInfo", page);
 			return "redirect:/article_management";
@@ -199,6 +204,7 @@ public class ArticleController {
 	 * @Description: 实现文章删除功能(只能操作自己的文章)
 	 * @return String 返回类型
 	 */
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/delete_article")
 	public String deleteArticle(HttpServletRequest request, @RequestParam("article_Id") String article_Id,
 			Model model) {
@@ -209,6 +215,7 @@ public class ArticleController {
 			List<Article> articles = articleService.getAllByAccount(1, account);
 
 			// 使用PageInfo包装查询后的结果
+			@SuppressWarnings("unchecked")
 			PageInfo page = new PageInfo(articles);
 			model.addAttribute("pageInfo", page);
 			return "article_management";
@@ -219,7 +226,7 @@ public class ArticleController {
 	/**
 	 * 
 	 * @Title: index
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @Description: 显示所有文章
 	 * @return String 返回类型
 	 */
 	@RequestMapping(value = "/all_articles")
@@ -236,8 +243,32 @@ public class ArticleController {
 			article.setAuthorAccount(account);
 		}
 		// 使用PageInfo包装查询后的结果
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		PageInfo page = new PageInfo(articles);
 		model.addAttribute("pageInfo", page);
 		return "all_articles";
+	}
+
+	/**
+	 * 
+	 * @Title: search_article
+	 * @Description: 搜索文章
+	 * @return String 返回类型
+	 */
+	@RequestMapping(value = "/search_article")
+	public String search_article(@RequestParam(value="search_name")  String search_name, Model model)
+			throws ParseException {
+		if(search_name==null||search_name=="")
+			return "search_article";
+		List<Article> articles = articleService.getAllSearch(search_name);
+
+		for (Article article : articles) {
+			String content = article.getArticleContent();
+			article.setPlantext(RemoveHTML.Html2Text(content));
+			String account = articleService.findAccountByUserId(article.getAuthorId());
+			article.setAuthorAccount(account);
+		}
+		model.addAttribute("articles",articles);
+		return "search_article";
 	}
 }

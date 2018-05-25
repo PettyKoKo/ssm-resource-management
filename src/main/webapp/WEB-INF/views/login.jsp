@@ -41,16 +41,7 @@
 								name="password" style="width: 300px" placeholder="输入密码" /><span
 								style="color: red" id="password-msg" class="error"></span>
 						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-10">
-							<div class="checkbox">
-								<label><input type="checkbox" />下次自动登录</label> <a
-									href="forget_password" style="float: right">忘记密码</a>
-							</div>
-
-						</div>
-					</div>
+					</div><br><br>
 					<div class="form-group">
 						<div class="col-sm-10">
 							<input type="submit" class="btn btn-default" name="login"
