@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageInfo;
-import com.kzl.rm.bean.Article;
 import com.kzl.rm.bean.Resource_Upload;
 import com.kzl.rm.service.Resource_UploadService;
 
