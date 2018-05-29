@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import com.kzl.rm.bean.Article;
 import com.kzl.rm.bean.Comment;
 import com.kzl.rm.service.ArticleService;
+import com.kzl.rm.service.CommentService;
 import com.kzl.rm.utils.RemoveHTML;
 
 /**
@@ -32,6 +33,9 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleService;
+	
+	@Autowired
+	private CommentService commentService;
 
 	/**
 	 * 
@@ -211,6 +215,7 @@ public class ArticleController {
 		HttpSession session = request.getSession();
 		String account = (String) session.getAttribute("account");
 		boolean result = articleService.deleteArticle(article_Id);
+		commentService.deleteCommentByArticleId(article_Id);
 		if (result) {
 			List<Article> articles = articleService.getAllByAccount(1, account);
 

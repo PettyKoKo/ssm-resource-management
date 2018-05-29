@@ -359,4 +359,9 @@
 		#{observerAccount,jdbcType=VARCHAR}
 		order by comment_time Desc
 	</select>
+	<delete id="deleteByArticleId" parameterType="java.lang.Long">
+		delete from
+		comment
+		where article_id = #{articleId,jdbcType=BIGINT}
+	</delete>
 </mapper>

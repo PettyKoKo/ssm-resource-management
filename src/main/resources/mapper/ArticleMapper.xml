@@ -427,7 +427,8 @@
 		where publish_type like '%${search_name}%' or 
 		article_name like '%${search_name}%' or
 		article_type like '%${search_name}%' or
-		article_content like '%${search_name}%'
+		article_content like '%${search_name}%' or
+		
 		order by finish_time Desc
 	</select>
 </mapper>

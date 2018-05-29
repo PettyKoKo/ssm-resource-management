@@ -113,7 +113,6 @@
 								<thead>
 									<tr>
 										<th style="width: 350px">标题</th>
-										<th style="width: 60px; text-align: center;">状态</th>
 										<th style="width: 60px; text-align: center;">阅读</th>
 										<th style="width: 60px; text-align: center;">评论</th>
 										<th style="width: 150px; text-align: center;">操作</th>
@@ -126,9 +125,8 @@
 												href="${APP_PATH }/article_details?articleId=${article.articleId}">${article.articleName}</a>&nbsp;&nbsp;(<fmt:formatDate
 													value="${article.finishTime }" type="date"
 													pattern="yyyy-MM-dd HH:mm:ss" />)</td>
-											<td></td>
+											<td>${article.praise }</td>
 											<td>${article.tread }</td>
-											<td>0</td>
 											<td><a href="${APP_PATH }/edit_article?articleId=${article.articleId}">编辑</a> | <a
 												href="${APP_PATH }/delete_article?article_Id=${article.articleId}" >删除</a></td>
 										</tr>

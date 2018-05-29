@@ -65,4 +65,9 @@ public class CommentService {
 		return comments;		
 	}
 
+	public boolean deleteCommentByArticleId(String article_Id) {
+		int count = commentMapper.deleteByArticleId(Long.parseLong(article_Id));
+		return count == 1;
+	}
+
 }

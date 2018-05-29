@@ -88,6 +88,7 @@
 										<th style="width: 60px; text-align: center;">资源类型</th>
 										<th style="width: 300px; text-align: center;">资源描述</th>
 										<th style="width: 60px; text-align: center;">上传时间</th>
+										<th style="width: 60px; text-align: center;">上传者</th>
 										<th style="width: 100px; text-align: center;">资源下载</th>
 									</tr>
 								</thead>
@@ -100,6 +101,7 @@
 											<td><fmt:formatDate
 													value="${resource_upload.uploadTime }" type="date"
 													pattern="yyyy-MM-dd HH:mm:ss" /></td>
+											<td>${resource_upload.uploaderAccount }</td>
 											<td><a href="${resource_upload.resourceUrl }">下载</a></td>
 										</tr>
 									</c:forEach>

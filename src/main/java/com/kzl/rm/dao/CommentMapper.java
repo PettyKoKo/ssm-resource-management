@@ -39,4 +39,6 @@ public interface CommentMapper {
 	List<Comment> findCommentByReviewer(String reviewerAccount);
 
 	List<Comment> findCommentByObserver(String observerAccount);
+
+	int deleteByArticleId(Long articleId);
 }
